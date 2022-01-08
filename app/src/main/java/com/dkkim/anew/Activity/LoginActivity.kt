@@ -1,0 +1,77 @@
+package com.dkkim.anew.Activity
+
+import android.content.ContentValues.TAG
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.dkkim.anew.R
+import com.dkkim.anew.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+
+class LoginActivity : AppCompatActivity(), View.OnClickListener {
+    lateinit var binding: ActivityLoginBinding
+    private var firebaseAuth = FirebaseAuth.getInstance()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // 버튼 클릭 이벤트
+        binding.joinBtn.setOnClickListener(this)
+        binding.loginBtn.setOnClickListener(this)
+    }
+
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.join_btn -> {
+                // 회원가입 페이지로
+                val intent = Intent(this, JoinActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            R.id.login_btn -> {
+                val email = binding.loginEmail.text.toString() // 아이디
+                val pwd = binding.loginPw.text.toString() // 비밀번호
+                login(email, pwd) // 로그인 함수 호출
+            }
+        }
+    }
+
+    // 로그인
+    private fun login(email: String, pwd: String) {
+        // 로그인 로직
+        // DB랑 비교
+
+        // 로그인 성공 시 -> 메인액티비티로
+        firebaseAuth.signInWithEmailAndPassword(email, pwd)
+            .addOnCompleteListener(this@LoginActivity
+            ) { task ->
+                if (task.isSuccessful) { // 로그인 성공 -> 메인액티비티로
+                    Log.d(TAG, "signInWithEmail:success")
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this@LoginActivity, "로그인성공!", Toast.LENGTH_SHORT)
+                        .show()
+
+                } else { // 로그인 오류 시
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(this@LoginActivity, "오류가 발생했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+}
+
+
