@@ -34,10 +34,6 @@ class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
 
     private val retrofit = RetrofitClient.create()
-
-    private var selectedFoodCode: String = ""
-    private var selectedFoodName: String = ""
-
     private val foodNutriDecodingKey =
         "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
 
@@ -52,13 +48,12 @@ class MainFragment : Fragment() {
 
         // 음식이름 검색시 액티비티
         binding.searchBtn.setOnClickListener {
-            var keyword = binding.foodEdit.text.toString()
+            val foodName = binding.foodEdit.text.toString()
 
             val intent = Intent(requireContext(), FoodSearchActivity()::class.java)
-            intent.putExtra("keyword", keyword)
+            intent.putExtra("foodName", foodName)
             startActivityForResult(intent, 200)
         }
-
 
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
