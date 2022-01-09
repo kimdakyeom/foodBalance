@@ -32,12 +32,12 @@
             android:id="@+id/search_btn"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_search_24"/>
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
 
+    </LinearLayout>
+    <TextView
+        android:id="@+id/result_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
