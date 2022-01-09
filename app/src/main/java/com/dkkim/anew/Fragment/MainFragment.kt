@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.dkkim.anew.Activity.FoodResultActivity
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Model.ResultFoodNutri
 import com.dkkim.anew.Model.ResultGetFoodCode
