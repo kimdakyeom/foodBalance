@@ -1,6 +1,7 @@
 package com.dkkim.anew.Fragment
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil.setContentView
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Model.ResultFoodNutri
 import com.dkkim.anew.Model.ResultGetFoodCode
 import com.dkkim.anew.R
+import com.dkkim.anew.databinding.ActivityMainBinding
 import com.dkkim.anew.databinding.FragmentMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,10 +45,10 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentMainBinding.inflate(inflater, container, false)
         // 식품군류 스피너 세팅
         setSpinnerCategory(resources.getStringArray(R.array.food_categories).toMutableList())
+
 
         // 음식이름 검색시 액티비티
         binding.searchBtn.setOnClickListener {

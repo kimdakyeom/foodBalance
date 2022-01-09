@@ -32,6 +32,9 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".Activity.FoodSearchActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
