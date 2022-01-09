@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.dkkim.anew.Fragment.CalendarFragment
-import com.dkkim.anew.Fragment.DietFragment
-import com.dkkim.anew.Fragment.MainFragment
-import com.dkkim.anew.Fragment.SettingFragment
+import com.dkkim.anew.Fragment.*
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
     lateinit var binding: ActivityMainBinding // 뷰바인딩
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +29,8 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             MainFragment::class.java.name
         )
         replaceFragment(fragment, bundle)
+
+
 
     }
 

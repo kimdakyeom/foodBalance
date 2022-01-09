@@ -1,7 +1,9 @@
 package com.dkkim.anew.Fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.dkkim.anew.Activity.FoodResultActivity
+import com.dkkim.anew.Activity.FoodSearchActivity
+import com.dkkim.anew.Model.ResultFoodNutri
 import com.dkkim.anew.Model.ResultGetFoodCode
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentMainBinding
@@ -26,60 +30,67 @@ import java.net.URLEncoder
 
 class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
-    private val retrofit = RetrofitCilent.create()
-    private var pageNumber = 0
-    private final val size = 20
-    private final val serviceKey = "GYbh7D2DFLK834K3R0f009ILwoUOVS2FjkM7JkOVpvbt7iNpeYKdlenp8wf3rEldx3Jt75r8z9zLByTqdJdzCA%3D%3D"
+
+    private val retrofit = RetrofitClient.create()
+
+    private var selectedFoodCode: String = ""
+    private var selectedFoodName: String = ""
+
+    private val foodNutriDecodingKey =
+        "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.foodSearchBtn.setOnClickListener {
-            var foodName: String = binding.foodNameEdit.text.toString()
-            searchByFoodName(foodName) // 음식이름으로 음식코드 조회
-        }
 
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         // 식품군류 스피너 세팅
         setSpinnerCategory(resources.getStringArray(R.array.food_categories).toMutableList())
-        binding.foodSearchBtn.setOnClickListener {
 
-            // api
+        // 음식이름 검색시 액티비티
+        binding.searchBtn.setOnClickListener {
+            var keyword = binding.foodEdit.text.toString()
 
-            var food_name: String = binding.foodNameEdit.text.toString()
-            val urlBuilder =
-                StringBuilder("http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1") /*URL*/
-            urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8").toString() + "=서비스키") /*Service Key*/
-            urlBuilder.append("&" + URLEncoder.encode("desc_kor", "UTF-8").toString() + "=" + URLEncoder.encode(food_name, "UTF-8")) /*식품이름*/
-            urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8").toString() + "=" + URLEncoder.encode("1", "UTF-8")) /*페이지번호*/
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8").toString() + "=" + URLEncoder.encode("30", "UTF-8")) /*한 페이지 결과 수*/
-            urlBuilder.append("&" + URLEncoder.encode("bgn_year", "UTF-8").toString() + "=" + URLEncoder.encode("", "UTF-8")) /*구축년도*/
-            urlBuilder.append("&" + URLEncoder.encode("animal_plant", "UTF-8").toString() + "=" + URLEncoder.encode("", "UTF-8")) /*가공업체*/
-            urlBuilder.append("&" + URLEncoder.encode("type", "UTF-8").toString() + "=" + URLEncoder.encode("json", "UTF-8")) /*응답데이터 형식(xml/json) Default: xml*/
-
-            val url = URL(urlBuilder.toString())
-            val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-            conn.setRequestMethod("GET")
-            conn.setRequestProperty("Content-type", "application/json")
-            System.out.println("Response code: " + conn.getResponseCode())
-            val rd: BufferedReader
-            if (conn.responseCode >= 200 && conn.responseCode <= 300) {
-                rd = BufferedReader(InputStreamReader(conn.getInputStream()))
-            } else {
-                rd = BufferedReader(InputStreamReader(conn.getErrorStream()))
-            }
-            val sb = StringBuilder()
-            var line: String?
-            while (rd.readLine().also { line = it } != null) {
-                sb.append(line)
-            }
-            rd.close()
-            conn.disconnect()
-            println(sb.toString())
+            val intent = Intent(requireContext(), FoodSearchActivity()::class.java)
+            intent.putExtra("keyword", keyword)
+            startActivityForResult(intent, 200)
         }
+
+
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 200) {
+            if (resultCode == Activity.RESULT_OK) {
+                // 음식 검색결과 액티비티엥서 선택한 음식명 코드
+                val selectedFoodCode = data?.getStringExtra("selectedFoodCode").toString()
+                getFoodNutriByFoodCode(selectedFoodCode)
+            }
+        }
+    }
+
+    private fun getFoodNutriByFoodCode(selectedFoodCode: String) {
+        retrofit.getFoodNutriInfo(foodNutriDecodingKey, selectedFoodCode)
+            .enqueue(object : Callback<ResultFoodNutri> {
+                override fun onResponse(
+                    call: Call<ResultFoodNutri>,
+                    response: Response<ResultFoodNutri>
+                ) {
+                    Log.d("레트로핏", selectedFoodCode)
+                    Log.d("레트로핏", response.code().toString())
+                    binding.resultText.text = response.raw().toString()
+
+                }
+
+                override fun onFailure(call: Call<ResultFoodNutri>, t: Throwable) {
+                    Log.d("레트로핏", "레트로핏실패: ${t.message}")
+                }
+
+            })
     }
 
     private fun setSpinnerCategory(
@@ -93,6 +104,7 @@ class MainFragment : Fragment() {
                     nameList
                 )
             }
+
         binding.foodCateSpinner.apply {
             adapter = spinnerAdapter
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -118,38 +130,5 @@ class MainFragment : Fragment() {
 
 
     }
-    fun searchByFoodName(food_name: String){
-        retrofit.getFoodCode(serviceKey, pageNumber, size, null, food_name).enqueue(object :
-            Callback<List<ResultGetFoodCode>> {
-            override fun onResponse(
-                call: Call<List<ResultGetFoodCode>>,
-                response: Response<List<ResultGetFoodCode>>,
-            ) {
-
-                if (response.isSuccessful && response.code() == 200 && response.body()?.isEmpty() == false) {
-                    // 음식 이름 조회 결과 액티비티로 전환
-                    val intent = Intent(requireContext(), FoodResultActivity()::class.java)
-                    startActivity(intent)
-
-                } else {
-                    // 검색결과 없습니다 토스트 메세지 띄우기
-                    Toast.makeText(
-                        context, "검색결과가 없습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-            }
-
-            override fun onFailure(call: Call<List<ResultGetFoodCode>>, t: Throwable) {
-                // 검색결과 없습니다 토스트 메세지 띄우기
-                Toast.makeText(
-                    context, "검색결과가 없습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        })
-    }
-
-
 
 }

@@ -22,16 +22,20 @@
             android:layout_width="0dp"
             android:layout_weight="7"
             android:inputType="text"
-            android:id="@+id/food_name_edit"
+            android:id="@+id/food_edit"
             android:padding="5dp"
             android:layout_height="wrap_content"/>
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:padding="3dp"
-            android:id="@+id/food_search_btn"
+            android:id="@+id/search_btn"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_search_24"/>
+        <TextView
+            android:id="@+id/result_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
