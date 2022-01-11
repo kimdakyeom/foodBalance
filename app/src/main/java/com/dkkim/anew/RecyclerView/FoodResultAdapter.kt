@@ -29,7 +29,7 @@ class FoodResultAdapter(
         var foodName: TextView
 
         init {
-            foodName = itemView.findViewById<TextView>(R.id.textView)
+            foodName = itemView.findViewById<TextView>(R.id.food_name)
         }
 
     }

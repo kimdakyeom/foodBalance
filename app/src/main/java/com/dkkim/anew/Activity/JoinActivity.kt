@@ -44,6 +44,11 @@ class JoinActivity : AppCompatActivity() {
             val email: String = binding.joinEmail.text.toString().trim()
             val pwd1: String = binding.joinPw1.text.toString().trim()
             val pwd2: String = binding.joinPw2.text.toString().trim() // 비밀번호확인란
+            val sex: Boolean = binding.joinSexFemale.isChecked()
+            val birth: String = binding.joinBirth.text.toString().trim()
+            val height: String = binding.joinHeight.toString()
+            val weight: String = binding.joinWeight.toString()
+
 
             if (pwd1 == pwd2) {
                 val dialog = ProgressDialog(this@JoinActivity)
@@ -59,13 +64,21 @@ class JoinActivity : AppCompatActivity() {
                             val email: String? = user?.email
                             val uid: String? = user?.uid
                             val name = binding.joinName.text.toString().trim()
+                            val sex: Boolean = binding.joinSexFemale.isChecked()
+                            val birth: String = binding.joinBirth.text.toString().trim()
+                            val height: String = binding.joinHeight.toString()
+                            val weight: String = binding.joinWeight.toString()
 
                             val account = UserAccount(
                                 uid,
                                 email,
                                 name,
-                                pwd1
-                            ) // UserAccount 모댈 변수(uid, email, name, pwd 순)
+                                pwd1,
+                                sex,
+                                birth,
+                                height,
+                                weight
+                            ) // UserAccount 모댈 변수
 
                             val db: FirebaseDatabase = FirebaseDatabase.getInstance()
                             val reference: DatabaseReference = db.getReference("UserAccount")
