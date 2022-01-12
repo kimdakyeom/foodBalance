@@ -1,7 +1,6 @@
 package com.dkkim.anew.Fragment
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,22 +11,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil.setContentView
 import com.dkkim.anew.Activity.FoodSearchActivity
-import com.dkkim.anew.Model.ResultFoodNutri
-import com.dkkim.anew.Model.ResultGetFoodCode
+import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
-import com.dkkim.anew.databinding.ActivityMainBinding
 import com.dkkim.anew.databinding.FragmentMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.lang.StringBuilder
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLEncoder
 
 
 class MainFragment : Fragment() {
@@ -64,30 +54,17 @@ class MainFragment : Fragment() {
         if (requestCode == 200) {
             if (resultCode == Activity.RESULT_OK) {
                 // 음식 검색결과 액티비티엥서 선택한 음식명 코드
-                val selectedFoodCode = data?.getStringExtra("selectedFoodCode").toString()
-                getFoodNutriByFoodCode(selectedFoodCode)
+                val service_Name = data?.getStringExtra("service_Name").toString()
+                val service_weight = data?.getStringExtra("service_weight")?.toInt()
+                val kcal = data?.getStringExtra("kcal")?.toDouble()
+                val carbo = data?.getStringExtra("carbo")?.toDouble()
+                val pro = data?.getStringExtra("pro")?.toDouble()
+                val prov = data?.getStringExtra("prov")?.toDouble()
+                val sugar = data?.getStringExtra("sugar")?.toDouble()
+
+                FoodInfo(service_Name, service_weight, kcal, carbo, pro, prov, sugar)
             }
         }
-    }
-
-    private fun getFoodNutriByFoodCode(selectedFoodCode: String) {
-        retrofit.getFoodNutriInfo(foodNutriDecodingKey, selectedFoodCode)
-            .enqueue(object : Callback<ResultFoodNutri> {
-                override fun onResponse(
-                    call: Call<ResultFoodNutri>,
-                    response: Response<ResultFoodNutri>
-                ) {
-                    Log.d("레트로핏", selectedFoodCode)
-                    Log.d("레트로핏", response.code().toString())
-                    binding.resultText.text = response.raw().toString()
-
-                }
-
-                override fun onFailure(call: Call<ResultFoodNutri>, t: Throwable) {
-                    Log.d("레트로핏", "레트로핏실패: ${t.message}")
-                }
-
-            })
     }
 
     private fun setSpinnerCategory(

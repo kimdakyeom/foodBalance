@@ -1,6 +1,7 @@
 package com.dkkim.anew.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class SettingUserInfoFragment : Fragment() {
         // 확인버튼 클릭 시 회원정보 수정
         binding.userInfoSetBtn.setOnClickListener {
             // 유저 정보에 저장 - 파이어베이스에
-            var name: String = binding.userNameEdit.text.toString()
+            var name: String = binding.userName.text.toString()
             var sex: Boolean = binding.userSexFemale.isChecked // T: 여자, F:남자
             var birth: String = binding.userBirthEdit.text.toString()
             var height: String = binding.userHeightEdit.text.toString()
@@ -68,12 +69,13 @@ class SettingUserInfoFragment : Fragment() {
             val email = user.email
             val emailVerified = user.isEmailVerified
             val uid = user.uid
-            binding.userNameEdit.setText(name)
+            binding.userName.setText(name)
+            Log.w("태그", "메세지")
             binding.userEmail.setText(email)
 
-            if (Firebase.auth.currentUser != null) {
-                print(uid)
-            }
+            // if (Firebase.auth.currentUser != null) {
+            //     print(uid)
+            // }
         }
 
 

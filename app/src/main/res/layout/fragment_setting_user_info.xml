@@ -47,12 +47,11 @@
             android:gravity="center"
             android:layout_weight="2"
             android:text="이름"/>
-        <EditText
-            android:id="@+id/user_name_edit"
+        <TextView
+            android:id="@+id/user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:inputType="text"/>
+            android:layout_weight="8" />
     </LinearLayout>
     <LinearLayout
         android:padding="10dp"
@@ -68,8 +67,7 @@
             android:id="@+id/user_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            />
+            android:layout_weight="8" />
     </LinearLayout>
     <LinearLayout
         android:padding="10dp"

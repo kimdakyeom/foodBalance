@@ -11,7 +11,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 class RetrofitClient {
     companion object{
 
-        private final val baseUrl: String = "http://apis.data.go.kr/1390802/AgriFood/"
+        private final val baseUrl: String = "http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/"
 
         //인터셉터 추가
         val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

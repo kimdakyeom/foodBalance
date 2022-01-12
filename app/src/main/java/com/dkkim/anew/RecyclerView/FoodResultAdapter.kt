@@ -1,23 +1,20 @@
 package com.dkkim.anew.RecyclerView
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.dkkim.anew.Model.ResultFoodCodeList
+import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 
-
 class FoodResultAdapter(
-    private val resultList: MutableList<FoodCodeInfo>
+    private val resultList: MutableList<FoodInfo>
 ) : RecyclerView.Adapter<FoodResultAdapter.FoodResultViewHolder>() {
 
 
     interface OnItemClickListener {
-        fun onItemClick(view: View, data: FoodCodeInfo, position: Int)
+        fun onItemClick(view: View, data: FoodInfo, position: Int)
     }
 
     private var listener: OnItemClickListener? = null
@@ -42,7 +39,7 @@ class FoodResultAdapter(
     }
 
     override fun onBindViewHolder(holder: FoodResultViewHolder, position: Int) {
-        holder.foodName.text = resultList[position].foodName
+        holder.foodName.text = resultList[position].food_Name
 
         if (position != RecyclerView.NO_POSITION) {
             holder.itemView.setOnClickListener {

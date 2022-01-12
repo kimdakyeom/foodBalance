@@ -7,8 +7,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dkkim.anew.Fragment.RetrofitClient
-import com.dkkim.anew.Model.ResultFoodCodeList
-import com.dkkim.anew.RecyclerView.FoodCodeInfo
+import com.dkkim.anew.Model.FoodInfo
+import com.dkkim.anew.Model.FoodInfoItem
+import com.dkkim.anew.Model.ResultFoodList
 import com.dkkim.anew.RecyclerView.FoodResultAdapter
 import com.dkkim.anew.databinding.ActivityFoodSearchBinding
 import retrofit2.Call
@@ -19,25 +20,20 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
     lateinit var binding: ActivityFoodSearchBinding
 
     private val foodCodeDecodingKey =
-        "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
+                "GYbh7D2DFLK834K3R0f009ILwoUOVS2FjkM7JkOVpvbt7iNpeYKdlenp8wf3rEldx3Jt75r8z9zLByTqdJdzCA=="
     private val retrofit = RetrofitClient.create()
-
-
-    private val listItems = arrayListOf<FoodCodeInfo>()
+    private val listItems = mutableListOf<FoodInfo>()
     private val foodResultAdapter = FoodResultAdapter(listItems)
 
     private var foodName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityFoodSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         foodName = intent.getStringExtra("foodName").toString()
         binding.foodEdit.setText(foodName)
-
-        searchFoodCodeByFoodName(foodName)
 
         binding.recyclerView.apply {
             layoutManager =
@@ -53,44 +49,58 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
 
     }
 
-    private fun addResultItem(items: ResultFoodCodeList?) {
+    private fun addResultItem(items: ResultFoodList?) {
         listItems.clear()
-        if (items?.response?.list != null) {
-            for (item in items.response.list) {
-                val i = FoodCodeInfo(
-                    item.fd_Nm, item.fd_Code
+        if (items?.items != null) {
+            for (item in items.items) {
+                val i = FoodInfo(
+                    item.DESC_KOR,
+                    item.SERVING_WT.toString().toInt(),
+                    item.NUTR_CONT1.toString().toDouble(),
+                    item.NUTR_CONT2.toString().toDouble(),
+                    item.NUTR_CONT3.toString().toDouble(),
+                    item.NUTR_CONT4.toString().toDouble(),
+                    item.NUTR_CONT5.toString().toDouble()
                 )
                 listItems.add(i)
             }
+
+            Log.d("listitem", listItems.toString())
 
         }
         foodResultAdapter.notifyDataSetChanged()
     }
 
     fun searchFoodCodeByFoodName(foodName: String) {
-        retrofit.getFoodCodeList(foodCodeDecodingKey, "json", 1, 20, foodName).enqueue(object :
-            Callback<ResultFoodCodeList> {
-            override fun onResponse(
-                call: Call<ResultFoodCodeList>,
-                response: Response<ResultFoodCodeList>
-            ) {
-                Log.d("레트로핏", response.code().toString())
+        retrofit.getFoodNutriInfo(foodCodeDecodingKey, "바나나", null,null,null, null, "json")
+            .enqueue(object :
+                Callback<ResultFoodList> {
+                override fun onResponse(
+                    call: Call<ResultFoodList>,
+                    response: Response<ResultFoodList>
+                ) {
+                    Log.d("레트로핏", response.code().toString())
 
-                addResultItem(response.body())
+                    addResultItem(response.body())
+                }
 
-            }
-
-            override fun onFailure(call: Call<ResultFoodCodeList>, t: Throwable) {
-                Log.d("레트로핏", "레트로핏실패: ${t.message}")
-            }
-
-        })
+                override fun onFailure(call: Call<ResultFoodList>, t: Throwable) {
+                    Log.d("레트로핏", "레트로핏실패: ${t.message}")
+                }
+            })
     }
 
-    override fun onItemClick(view: View, data: FoodCodeInfo, position: Int) {
+    override fun onItemClick(view: View, data: FoodInfo, position: Int) {
         val intent = Intent()
-        intent.putExtra("selectedFoodCode",data.foodCode)
+        intent.putExtra("service_Name", data.food_Name)
+        intent.putExtra("service_weight", data.serving_Weight)
+        intent.putExtra("kcal", data.kcal)
+        intent.putExtra("carbo", data.carbo)
+        intent.putExtra("pro", data.pro)
+        intent.putExtra("prov", data.prov)
+        intent.putExtra("sugar", data.sugar)
         setResult(RESULT_OK, intent)
         finish()
     }
+
 }
