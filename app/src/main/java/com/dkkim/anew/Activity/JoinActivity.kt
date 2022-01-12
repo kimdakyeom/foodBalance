@@ -41,13 +41,13 @@ class JoinActivity : AppCompatActivity() {
 
         // 가입버튼 -> firebase에 데이터 저장
         binding.joinBtn.setOnClickListener {
-            val email: String = binding.joinEmail.text.toString().trim()
-            val pwd1: String = binding.joinPw1.text.toString().trim()
-            val pwd2: String = binding.joinPw2.text.toString().trim() // 비밀번호확인란
+            val email: String = binding.joinEmail.text.toString()
+            val pwd1: String = binding.joinPw1.text.toString()
+            val pwd2: String = binding.joinPw2.text.toString() // 비밀번호확인란
             val sex: Boolean = binding.joinSexFemale.isChecked()
-            val birth: String = binding.joinBirth.text.toString().trim()
-            val height: String = binding.joinHeight.toString()
-            val weight: String = binding.joinWeight.toString()
+            val birth: String = binding.joinBirth.text.toString()
+            val height: String = binding.joinHeight.text.toString()
+            val weight: String = binding.joinWeight.text.toString()
 
 
             if (pwd1 == pwd2) {
@@ -66,8 +66,8 @@ class JoinActivity : AppCompatActivity() {
                             val name = binding.joinName.text.toString().trim()
                             val sex: Boolean = binding.joinSexFemale.isChecked()
                             val birth: String = binding.joinBirth.text.toString().trim()
-                            val height: String = binding.joinHeight.toString()
-                            val weight: String = binding.joinWeight.toString()
+                            val height: String = binding.joinHeight.text.toString()
+                            val weight: String = binding.joinWeight.text.toString()
 
                             val account = UserAccount(
                                 uid,

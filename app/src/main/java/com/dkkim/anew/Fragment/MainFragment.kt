@@ -62,7 +62,6 @@ class MainFragment : Fragment() {
                 val prov = data?.getStringExtra("prov")?.toDouble()
                 val sugar = data?.getStringExtra("sugar")?.toDouble()
 
-                FoodInfo(service_Name, service_weight, kcal, carbo, pro, prov, sugar)
             }
         }
     }

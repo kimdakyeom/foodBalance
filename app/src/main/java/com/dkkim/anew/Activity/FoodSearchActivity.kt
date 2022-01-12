@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dkkim.anew.Fragment.RetrofitClient
 import com.dkkim.anew.Model.FoodInfo
-import com.dkkim.anew.Model.FoodInfoItem
 import com.dkkim.anew.Model.ResultFoodList
 import com.dkkim.anew.RecyclerView.FoodResultAdapter
 import com.dkkim.anew.databinding.ActivityFoodSearchBinding
@@ -51,16 +50,16 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
 
     private fun addResultItem(items: ResultFoodList?) {
         listItems.clear()
-        if (items?.items != null) {
-            for (item in items.items) {
+        if (items?.body?.items != null) {
+            for (item in items.body.items) {
                 val i = FoodInfo(
                     item.DESC_KOR,
-                    item.SERVING_WT.toString().toInt(),
-                    item.NUTR_CONT1.toString().toDouble(),
-                    item.NUTR_CONT2.toString().toDouble(),
-                    item.NUTR_CONT3.toString().toDouble(),
-                    item.NUTR_CONT4.toString().toDouble(),
-                    item.NUTR_CONT5.toString().toDouble()
+                    item.SERVING_WT.toInt(),
+//                    item.NUTR_CONT1.toDouble(),
+//                    item.NUTR_CONT2.toDouble(),
+//                    item.NUTR_CONT3.toDouble(),
+//                    item.NUTR_CONT4.toDouble(),
+//                    item.NUTR_CONT5.toDouble()
                 )
                 listItems.add(i)
             }
@@ -72,7 +71,7 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
     }
 
     fun searchFoodCodeByFoodName(foodName: String) {
-        retrofit.getFoodNutriInfo(foodCodeDecodingKey, "바나나", null,null,null, null, "json")
+        retrofit.getFoodNutriInfo(foodCodeDecodingKey, foodName, null,null,null, null, "json")
             .enqueue(object :
                 Callback<ResultFoodList> {
                 override fun onResponse(
@@ -94,11 +93,11 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         val intent = Intent()
         intent.putExtra("service_Name", data.food_Name)
         intent.putExtra("service_weight", data.serving_Weight)
-        intent.putExtra("kcal", data.kcal)
-        intent.putExtra("carbo", data.carbo)
-        intent.putExtra("pro", data.pro)
-        intent.putExtra("prov", data.prov)
-        intent.putExtra("sugar", data.sugar)
+//        intent.putExtra("kcal", data.kcal)
+//        intent.putExtra("carbo", data.carbo)
+//        intent.putExtra("pro", data.pro)
+//        intent.putExtra("prov", data.prov)
+//        intent.putExtra("sugar", data.sugar)
         setResult(RESULT_OK, intent)
         finish()
     }
