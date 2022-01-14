@@ -1,6 +1,7 @@
 package com.dkkim.anew.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class CalendarFragment : Fragment(), CalendarView.OnDateChangeListener {
 
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
+
     }
 
     override fun onSelectedDayChange(view: CalendarView, year: Int, month: Int, dayOfMonth: Int) {
@@ -31,13 +33,16 @@ class CalendarFragment : Fragment(), CalendarView.OnDateChangeListener {
         bundle.putString("month", month.toString())
         bundle.putString("dayOfMonth", dayOfMonth.toString())
 
-        val calendarResultfragment = CalendarResultFragment()
-        calendarResultfragment.arguments = bundle
+        Log.d("월일", "$month/$dayOfMonth")
+
+        val calendarResultfragment = CalendarResultFragment(month, dayOfMonth)
+
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.main_frame, CalendarResultFragment())
+            .replace(R.id.main_frame, calendarResultfragment)
             .addToBackStack(null)
             .commit()
+
 
     }
 
