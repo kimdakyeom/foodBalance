@@ -35,10 +35,8 @@ class SettingUserInfoFragment : Fragment() {
 
         binding = FragmentSettingUserInfoBinding.inflate(inflater, container, false)
 
-
         // 저장되어있던 유저정보 불러와 세팅
         initUserInfo(user.uid.toString())
-
 
         // 뒤로가기 버튼
         binding.backBtn.setOnClickListener {
