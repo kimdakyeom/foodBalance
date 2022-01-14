@@ -5,20 +5,20 @@ data class ResultFoodList(
     val header: Header
 )
 
-data class Body(
+data class Body( // Body에 있는 응답 메시지
     val items: List<Item>,
     val numOfRows: Int,
     val pageNo: Int,
     val totalCount: Int
 )
 
-data class Header(
+data class Header( // Header에 있는 응답 메시지
     val resultCode: String,
     val resultMsg: String
 )
 
 
-data class Item(
+data class Item( // Item 응답 메시지
     val ANIMAL_PLANT: String,
     val BGN_YEAR: String,
     val DESC_KOR: String,

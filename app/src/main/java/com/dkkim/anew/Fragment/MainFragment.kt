@@ -21,39 +21,40 @@ import retrofit2.Response
 
 
 class MainFragment : Fragment() {
-    lateinit var binding: FragmentMainBinding
+    lateinit var binding: FragmentMainBinding // 프래그먼트 바인딩
 
-    private val retrofit = RetrofitClient.create()
+    private val retrofit = RetrofitClient.create() // 레트로핏 클라이언트 선언
+
+    // 공공데이터 open api 디코딩키 선언
     private val foodNutriDecodingKey =
         "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView( // onCreate 후에 화면을 구성할 때 호출
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? // Layout 가져오기
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        // 식품군류 스피너 세팅
-        setSpinnerCategory(resources.getStringArray(R.array.food_categories).toMutableList())
+        binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
 
 
         // 음식이름 검색시 액티비티
         binding.searchBtn.setOnClickListener {
-            val foodName = binding.foodEdit.text.toString()
+            val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
 
-            val intent = Intent(requireContext(), FoodSearchActivity()::class.java)
-            intent.putExtra("foodName", foodName)
-            startActivityForResult(intent, 200)
+            val intent = Intent(requireContext(), FoodSearchActivity()::class.java) // FoodSearchActivity로 화면 전환
+            intent.putExtra("foodName", foodName) // foodName에 넣은 값 가지고 intent
+            startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
         }
-
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    // main activity에서 sub activity를 호출해서 넘어갔다가 다시 main activity로 돌아옴
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) { // data는 intent로 받음
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 200) {
-            if (resultCode == Activity.RESULT_OK) {
-                // 음식 검색결과 액티비티엥서 선택한 음식명 코드
+        if (requestCode == 200) { // FoodSearchActivity이면
+            if (resultCode == Activity.RESULT_OK) { // 음식 검색결과 액티비티에에서 선택한 음식명
+
+                // 받아온 데이터 이름, 1회 제공량, 칼로리, 탄, 단, 지 저장
                 val service_Name = data?.getStringExtra("service_Name").toString()
                 val service_weight = data?.getStringExtra("service_weight")?.toInt()
                 val kcal = data?.getStringExtra("kcal")?.toDouble()
@@ -65,43 +66,4 @@ class MainFragment : Fragment() {
             }
         }
     }
-
-    private fun setSpinnerCategory(
-        nameList: MutableList<String>
-    ) {
-        val spinnerAdapter =
-            context?.let {
-                ArrayAdapter(
-                    it,
-                    R.layout.support_simple_spinner_dropdown_item,
-                    nameList
-                )
-            }
-
-        binding.foodCateSpinner.apply {
-            adapter = spinnerAdapter
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    Toast.makeText(
-                        requireContext(),
-                        "${nameList[position]}을 선택하였습니다.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Toast.makeText(requireContext(), "선택을 취소하였습니다.", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-        }
-
-
-    }
-
 }
