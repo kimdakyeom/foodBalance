@@ -53,17 +53,16 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                 val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, SettingFragment::class.java.name)
                 replaceFragment(fragment, bundle) // 프래그먼트 전환 함수에 SettingFragment와 전달할 값 주머니 넣기
             }
-
         }
         return false
     }
 
     // 프래그먼트 전환 함수에 fragment와 bundle 선언
     private fun replaceFragment(fragment: Fragment, bundle: Bundle) {
-        fragment.arguments = bundle // 선언한 프래그먼트에 bundle 붙이기
+        fragment.arguments = bundle // FragmentArgument에 데이터 저장
         supportFragmentManager // activity에서 fragment로 전환시 사용
             .beginTransaction() // 프래그먼트 트랜잭션 시작
-            .addToBackStack(null) // 스택에 프래그먼트 쌓기기
+            .addToBackStack(null) // 스택에 프래그먼트 쌓기
            .replace(R.id.main_frame, fragment) // (프래그먼트에 들어갈 프레임 레이아웃 ID, 전환될 프래그먼트)
             .commit() // 실행
     }

@@ -19,19 +19,18 @@ class SettingUserInfoFragment : Fragment() {
 
     lateinit var binding: FragmentSettingUserInfoBinding
 
-
+    // Realtime Database에서 Data를 읽기위해 DatabaseReference 인스턴스 선언
     val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("UserAccount")
 
+    // UserAccount에 uid는 firebase.auth에서 가져옴
     var user = UserAccount(Firebase.auth.uid, null, null, null, null, null, null, null)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-
-
     ): View? {
 
-        Log.i("firebase", Firebase.auth.uid.toString())
+        Log.i("firebase", Firebase.auth.uid.toString()) // firebase.auth의 uid 찍기
 
         binding = FragmentSettingUserInfoBinding.inflate(inflater, container, false)
 
@@ -65,7 +64,6 @@ class SettingUserInfoFragment : Fragment() {
         height: String,
         weight: String
     ) {
-
         val updateUserAccount = mapOf<String, Any>(
             "uid" to user.uid.toString(),
             "email" to user.email.toString(),
@@ -75,9 +73,9 @@ class SettingUserInfoFragment : Fragment() {
             "birth" to birth,
             "height" to height,
             "weight" to weight
-
         )
 
+        // 하위 노드를 모두 업데이트
         reference.child("").child(updateUserAccount["uid"].toString()).updateChildren(updateUserAccount)
     }
 
@@ -98,7 +96,6 @@ class SettingUserInfoFragment : Fragment() {
                 map["weight"].toString()
             )
             binding.userName.setText(user.name)
-
             binding.userEmail.text = user.email
 
             if (user.sex != null) {
@@ -106,11 +103,9 @@ class SettingUserInfoFragment : Fragment() {
                 binding.userSexMale.isChecked = !user.sex!!
             }
 
-
             binding.userBirthEdit.setText(user.birth)
             binding.userHeightEdit.setText(user.height)
             binding.userWeightEdit.setText(user.weight)
-
 
         }
 

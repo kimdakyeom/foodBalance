@@ -52,6 +52,7 @@ class CalendarFragment : Fragment(), CalendarView.OnDateChangeListener {
 
 //        리사이클러뷰 어댑터에 붙이기
 //        setDietList(dietList)
+//        setDietList(dietList)
     }
 
 }

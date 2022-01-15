@@ -19,8 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
-    lateinit var binding: FragmentSettingBinding
-    private var firebaseAuth = FirebaseAuth.getInstance()
+    lateinit var binding: FragmentSettingBinding // FragmentSetting 바인딩
+    private var firebaseAuth = FirebaseAuth.getInstance() // FirebaseAuth 인스턴스 초기화
 
     // 설정에 들어갈 메뉴들
     private val settingList = arrayListOf(
@@ -59,12 +59,12 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
         return binding.root
     }
 
-    // 각 프래그머트로 변경하는 코드
+    // 각 프래그먼트로 변경하는 코드
     override fun onItemClick(view: View, data: SettingInfo, position: Int) {
         when (data.name) {
             "개인정보 설정" -> {
                 val bundle = Bundle()
-                bundle.putString("uid", "사용자uid")
+                bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
                 replaceFragment(SettingUserInfoFragment(), bundle)
             }
             "평균 권장 섭취량" -> {
@@ -80,15 +80,12 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
             "로그아웃" -> {
                 Logout()
             }
-
-
         }
     }
 
     private fun Logout() {
-        // 로그아웃 함수 구현
-        firebaseAuth.signOut()
-        val intent = Intent(getActivity(), LoginActivity::class.java)
+        firebaseAuth.signOut() // 로그아웃
+        val intent = Intent(getActivity(), LoginActivity::class.java) // LoginActivity로 화면 전환
         startActivity(intent)
         Toast.makeText(getActivity(), "로그아웃", Toast.LENGTH_SHORT)
             .show()
