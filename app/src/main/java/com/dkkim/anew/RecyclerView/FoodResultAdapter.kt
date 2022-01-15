@@ -9,28 +9,30 @@ import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 
 class FoodResultAdapter(
-    private val resultList: MutableList<FoodInfo>
-) : RecyclerView.Adapter<FoodResultAdapter.FoodResultViewHolder>() {
+    private val resultList: MutableList<FoodInfo> // 읽기/쓰기가 가능한 list
+) : RecyclerView.Adapter<FoodResultAdapter.FoodResultViewHolder>() { // RecyclerVew에 Adapter 정의
 
-
-    interface OnItemClickListener {
+    interface OnItemClickListener { // setOnClickListener를 이용해서 onItemClick 전달
         fun onItemClick(view: View, data: FoodInfo, position: Int)
     }
 
-    private var listener: OnItemClickListener? = null
+    private var listener: OnItemClickListener? = null // 위랑 무슨 차이?
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 
+    // 한 화면에 나오는 레이아웃 개수만큼 생성, 새로 생성시 ViewHolder 재사용
     class FoodResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var foodName: TextView
 
         init {
-            foodName = itemView.findViewById<TextView>(R.id.food_name)
+            foodName =
+                itemView.findViewById<TextView>(R.id.food_name)
         }
 
     }
 
+    // ViewHolder 생성(레이아웃 생성)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodResultViewHolder {
         val view = LayoutInflater
             .from(parent.context)
@@ -38,6 +40,7 @@ class FoodResultAdapter(
         return FoodResultViewHolder(view)
     }
 
+    // ViewHolder가 재활용될 때 실행되는 메서드
     override fun onBindViewHolder(holder: FoodResultViewHolder, position: Int) {
         holder.foodName.text = resultList[position].food_Name
 
@@ -46,10 +49,9 @@ class FoodResultAdapter(
                 listener?.onItemClick(holder.itemView, resultList[position], position)
             }
         }
-
-
     }
 
+    // 아이템 개수를 조회
     override fun getItemCount(): Int {
         return resultList.size
     }

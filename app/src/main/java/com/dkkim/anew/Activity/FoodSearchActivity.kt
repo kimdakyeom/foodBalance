@@ -19,39 +19,38 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
     lateinit var binding: ActivityFoodSearchBinding
 
     private val foodCodeDecodingKey =
-                "GYbh7D2DFLK834K3R0f009ILwoUOVS2FjkM7JkOVpvbt7iNpeYKdlenp8wf3rEldx3Jt75r8z9zLByTqdJdzCA=="
+        "GYbh7D2DFLK834K3R0f009ILwoUOVS2FjkM7JkOVpvbt7iNpeYKdlenp8wf3rEldx3Jt75r8z9zLByTqdJdzCA=="
     private val retrofit = RetrofitClient.create()
-    private val listItems = mutableListOf<FoodInfo>()
-    private val foodResultAdapter = FoodResultAdapter(listItems)
+    private val listItems = mutableListOf<FoodInfo>() // 읽기/쓰기가 가능한 list
+    private val foodResultAdapter = FoodResultAdapter(listItems) // foodResult recycleview를 위한 어댑터
 
-    private var foodName = ""
+    private var foodName = "" // foodName 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFoodSearchBinding.inflate(layoutInflater)
+        binding = ActivityFoodSearchBinding.inflate(layoutInflater) // FoodSearchActivity 바인딩
         setContentView(binding.root)
 
-        foodName = intent.getStringExtra("foodName").toString()
-        binding.foodEdit.setText(foodName)
+        foodName = intent.getStringExtra("foodName").toString() // foodName에 넣은 값 가져오기
+        binding.foodEdit.setText(foodName) // foodEdit에 입력된 foodName 읽기
 
-        binding.recyclerView.apply {
-            layoutManager =
+        binding.recyclerView.apply { // rectcleview 바인딩
+            layoutManager = // FoodSearchActivity에 LinearLayout 수평으로 보여주기
                 LinearLayoutManager(this@FoodSearchActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = foodResultAdapter
+            adapter = foodResultAdapter // foodResultAdapter 붙이기
         }
 
-        foodResultAdapter.setOnItemClickListener(this)
+        foodResultAdapter.setOnItemClickListener(this) // foodResultAdapter에서 setOnItemClickListener
 
-        binding.searchBtn.setOnClickListener {
-            searchFoodCodeByFoodName(binding.foodEdit.text.toString())
+        binding.searchBtn.setOnClickListener { // searchBtn 클릭시
+            searchFoodCodeByFoodName(binding.foodEdit.text.toString()) // foodEdit에 입력된 text를 searchFoodCodeByFoodName 함수에 넣고 실행
         }
-
     }
 
     private fun addResultItem(items: ResultFoodList?) {
-        listItems.clear()
-        if (items?.body?.items != null) {
-            for (item in items.body.items) {
+        listItems.clear() // listItems에 있는 내용 삭제
+        if (items?.body?.items != null) { // ResultFoodList의 body 응답을 받았다면
+            for (item in items.body.items) { // items.body.items 객체를 하나씩 item에 담기
                 val i = FoodInfo(
                     item.DESC_KOR,
                     item.SERVING_WT.toInt(),
@@ -61,36 +60,39 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
 //                    item.NUTR_CONT4.toDouble(),
 //                    item.NUTR_CONT5.toDouble()
                 )
-                listItems.add(i)
+                listItems.add(i) // listItem에 FoodInfo 차례대로 담기
             }
 
-            Log.d("listitem", listItems.toString())
+            Log.d("listitem", listItems.toString()) // listItem에 들어있는 item들 보기
 
         }
-        foodResultAdapter.notifyDataSetChanged()
+        foodResultAdapter.notifyDataSetChanged() // recyclerView의 리스트를 업데이트
     }
 
     fun searchFoodCodeByFoodName(foodName: String) {
-        retrofit.getFoodNutriInfo(foodCodeDecodingKey, foodName, null,null,null, null, "json")
-            .enqueue(object :
-                Callback<ResultFoodList> {
-                override fun onResponse(
-                    call: Call<ResultFoodList>,
-                    response: Response<ResultFoodList>
+        // retrofit으로 파라미터 값 전달
+        retrofit.getFoodNutriInfo(foodCodeDecodingKey, foodName, null, null, null, null, "json")
+            .enqueue(object : // 파라미터 값을 enqueue
+                Callback<ResultFoodList> { // 결과값을 Callback으로 넘겨받음
+                override fun onResponse( // 통신했을 때 값 돌려받음
+                    call: Call<ResultFoodList>, // ResultFoodList 값 요청
+                    response: Response<ResultFoodList> // ResultFoodList 값 받음
                 ) {
-                    Log.d("레트로핏", response.code().toString())
+                    Log.d("레트로핏", response.code().toString()) // 레트로핏 응답 성공시 response code 반환
 
-                    addResultItem(response.body())
+                    addResultItem(response.body()) // body 응답을 addResultItem 함수에 전달
                 }
 
-                override fun onFailure(call: Call<ResultFoodList>, t: Throwable) {
-                    Log.d("레트로핏", "레트로핏실패: ${t.message}")
+                override fun onFailure(call: Call<ResultFoodList>, t: Throwable) { // 레트로핏 응답 실패시
+                    Log.d("레트로핏", "레트로핏실패: ${t.message}") // 실패 메시지 반환
                 }
             })
     }
 
+    // Item 클릭시
     override fun onItemClick(view: View, data: FoodInfo, position: Int) {
-        val intent = Intent()
+        val intent = Intent() // 화면 전환
+        // 데이터 가지고 intent
         intent.putExtra("service_Name", data.food_Name)
         intent.putExtra("service_weight", data.serving_Weight)
 //        intent.putExtra("kcal", data.kcal)
@@ -98,8 +100,8 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
 //        intent.putExtra("pro", data.pro)
 //        intent.putExtra("prov", data.prov)
 //        intent.putExtra("sugar", data.sugar)
-        setResult(RESULT_OK, intent)
-        finish()
+        setResult(RESULT_OK, intent) // 호출된 Activity에 결과 돌려주기
+        finish() // Activity 종료
     }
 
 }

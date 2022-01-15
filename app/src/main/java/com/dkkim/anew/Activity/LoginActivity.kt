@@ -12,8 +12,8 @@ import com.dkkim.anew.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
-    lateinit var binding: ActivityLoginBinding
-    private var firebaseAuth = FirebaseAuth.getInstance()
+    lateinit var binding: ActivityLoginBinding // ActivityLogin 바인딩
+    private var firebaseAuth = FirebaseAuth.getInstance() // FirebaseAuth 인스턴스 초기화
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +44,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // 로그인
     private fun login(email: String, pwd: String) {
-        // 로그인 로직
-        // DB랑 비교
-
-        // 로그인 성공 시 -> 메인액티비티로
         firebaseAuth.signInWithEmailAndPassword(email, pwd)
-            .addOnCompleteListener(this@LoginActivity
+            .addOnCompleteListener(
+                this@LoginActivity
             ) { task ->
                 if (task.isSuccessful) { // 로그인 성공 -> 메인액티비티로
                     Log.d(TAG, "signInWithEmail:success")
@@ -66,9 +62,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         .show()
                 }
             }
-
     }
-
 }
 
 

@@ -20,13 +20,13 @@ class JoinActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityJoinBinding
 
-    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseAuth: FirebaseAuth // firebaseAuth 인스턴스 선언
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityJoinBinding.inflate(layoutInflater)
+        binding = ActivityJoinBinding.inflate(layoutInflater) // ActivityJoin 바인딩
         setContentView(binding.root)
 
         // 액션 바 등록
@@ -37,7 +37,7 @@ class JoinActivity : AppCompatActivity() {
             setDisplayShowHomeEnabled(true) // 홈아이콘
         }
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance() // FirebaseAuth 인스턴스 초기화
 
         // 가입버튼 -> firebase에 데이터 저장
         binding.joinBtn.setOnClickListener {
@@ -50,16 +50,12 @@ class JoinActivity : AppCompatActivity() {
             val weight: String = binding.joinWeight.text.toString()
 
 
-            if (pwd1 == pwd2) {
-                val dialog = ProgressDialog(this@JoinActivity)
-                dialog.apply {
-                    setMessage("가입중입니다.")
-                    show()
-                }
+            if (pwd1 == pwd2) { // 비밀번호 입력란과 비밀번호 확인란이 같을 때
 
+                // firebaseAuth에 email과 password로 user 생성
                 firebaseAuth.createUserWithEmailAndPassword(email, pwd1)
-                    .addOnCompleteListener(this@JoinActivity) { task ->
-                        if (task.isSuccessful) { // 가입성공시
+                    .addOnCompleteListener(this@JoinActivity) { task -> // 성공유무 값 확인
+                        if (task.isSuccessful) { // 가입 성공시
                             val user: FirebaseUser? = firebaseAuth.currentUser
                             val email: String? = user?.email
                             val uid: String? = user?.uid
@@ -69,6 +65,7 @@ class JoinActivity : AppCompatActivity() {
                             val height: String = binding.joinHeight.text.toString()
                             val weight: String = binding.joinWeight.text.toString()
 
+                            // UserAccount에 값 넣기
                             val account = UserAccount(
                                 uid,
                                 email,
@@ -80,9 +77,9 @@ class JoinActivity : AppCompatActivity() {
                                 weight
                             ) // UserAccount 모댈 변수
 
-                            val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-                            val reference: DatabaseReference = db.getReference("UserAccount")
-                            reference.child(uid.toString()).setValue(account)
+                            val db: FirebaseDatabase = FirebaseDatabase.getInstance() // FirebaseDatabase 인스턴스 초기화
+                            val reference: DatabaseReference = db.getReference("UserAccount") // DatabaseReference를 매개체 삼아 읽기/쓰기
+                            reference.child(uid.toString()).setValue(account) // reference에서 하위 값의 uid를 account에 즉시 값 변경
 
                             // 가입성공시 join액티비티 빠져나와 login액티비티로
                             val intent = Intent(this@JoinActivity, LoginActivity::class.java)
@@ -94,12 +91,12 @@ class JoinActivity : AppCompatActivity() {
                         } else { // 가입 실패시
                             Toast.makeText(
                                 this@JoinActivity,
-                                "이미 존재하는 아이디입니다.\n다시 시도해주세요", Toast.LENGTH_SHORT
+                                "가입에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT
                             ).show()
-                            Log.w(TAG, "signInWithEmail:failure", task.exception)
+                            Log.w(TAG, "signInWithEmail:failure", task.exception) // 예외 log에 찍기
                         }
                     }
-            } else {
+            } else { // 비밀번호란과 비밀번호 확인란이 일치하지 않을 때
                 Toast.makeText(
                     this@JoinActivity,
                     "비밀번호가 일치하지 않습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT
@@ -108,7 +105,7 @@ class JoinActivity : AppCompatActivity() {
 
         }
 
-// 뒤로가기 버튼 클릭 이벤트
+        // 뒤로가기 버튼 클릭 이벤트
         binding.joinBackBtn.setOnClickListener {
             // 다시 로그인 화면 띄우기
             val intent = Intent(this, LoginActivity::class.java)

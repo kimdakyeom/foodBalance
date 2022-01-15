@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     override fun onCreate(savedInstanceState: Bundle?) { // AppCompatActivity 속 onCreate fun
         super.onCreate(savedInstanceState) // AppCompatActivity의 onCreate 호출
 
-        binding = ActivityMainBinding.inflate(layoutInflater) // 레이아웃을 MainActivity에 붙히는 부분
+        binding = ActivityMainBinding.inflate(layoutInflater) // xml에 정의된 Resource를 View 객체로 반환
         setContentView(binding.root) // 화면에 뷰 활성
 
         binding.navigationBar.setOnItemSelectedListener(this) // item을 implement해서 override 함수로 구현
