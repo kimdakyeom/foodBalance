@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment
 import com.dkkim.anew.databinding.FragmentCalendarResultBinding
 import com.dkkim.anew.databinding.FragmentDietBinding
 import com.dkkim.anew.databinding.FragmentSettingQnaBinding
+import sun.bob.mcalendarview.vo.DateData
 
-class CalendarResultFragment(var month: Int, var dayOfMonth: Int) : Fragment() {
+class CalendarResultFragment(var date: DateData) : Fragment() {
     lateinit var binding: FragmentCalendarResultBinding
 
     @SuppressLint("SetTextI18n")
@@ -22,10 +23,11 @@ class CalendarResultFragment(var month: Int, var dayOfMonth: Int) : Fragment() {
     ): View? {
         binding = FragmentCalendarResultBinding.inflate(inflater, container, false)
 
-        month = month + 1
-        binding.monthDate.text = "$month/$dayOfMonth"
+        var day = date.day
+        var month = date.month
 
-        Log.d("월일", "$month/$dayOfMonth")
+        binding.monthDate.text = "$month/$day"
+        Log.d("월일", "$date.monthString/$date.dayString")
 
         // 뒤로가기 버튼
         binding.backBtn.setOnClickListener {

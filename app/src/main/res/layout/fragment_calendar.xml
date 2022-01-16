@@ -7,25 +7,41 @@
     android:orientation="vertical"
     tools:context=".Fragment.CalendarFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="칼로리 캘린더"
-        android:textSize="13sp" />
+        android:layout_height="50dp"
+        android:background="#80EDBB72">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_white_24" />
+
+        <TextView
+            android:id="@+id/calendarText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="칼로리 캘린더"
+            tools:ignore="MissingConstraints">
+
+        </TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/main_color" />
 
-    <CalendarView
-        android:id="@+id/calendar_view"
+    <sun.bob.mcalendarview.MCalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </LinearLayout>
