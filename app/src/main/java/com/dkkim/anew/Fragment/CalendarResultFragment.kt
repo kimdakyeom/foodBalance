@@ -27,7 +27,7 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
         var month = date.month
 
         binding.monthDate.text = "$month/$day"
-        Log.d("월일", "$date.monthString/$date.dayString")
+        Log.d("월일", "$month/$day")
 
         // 뒤로가기 버튼
         binding.backBtn.setOnClickListener {
@@ -37,6 +37,4 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
         return binding.root
 
     }
-
-
 }

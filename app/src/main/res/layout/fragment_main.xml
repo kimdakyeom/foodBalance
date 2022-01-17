@@ -8,30 +8,29 @@
     tools:context=".Fragment.MainFragment">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="10dp">
+
         <EditText
+            android:id="@+id/food_edit"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="7"
             android:inputType="text"
-            android:id="@+id/food_edit"
-            android:padding="5dp"
-            android:layout_height="wrap_content"/>
+            android:padding="5dp" />
+
         <ImageView
+            android:id="@+id/search_btn"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="3dp"
-            android:id="@+id/search_btn"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_search_24"/>
+            android:src="@drawable/ic_baseline_search_24" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/result_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,19 +39,83 @@
         <TextView
             android:id="@+id/food_weight"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:gravity="center"
             android:text="0"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="25sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="155dp"
+            android:gravity="center"
             android:text="g"
+            android:textSize="30sp"
             app:layout_constraintStart_toEndOf="@id/food_weight"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="100dp"
+            android:text="              "
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/carbohydrate"
+            app:layout_constraintTop_toBottomOf="@id/food_weight"/>
+
+        <TextView
+            android:id="@+id/carbohydrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="100dp"
+            android:text="              "
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@id/calories"
+            app:layout_constraintRight_toLeftOf="@+id/protein"
+            app:layout_constraintTop_toBottomOf="@id/food_weight"/>
+
+        <TextView
+            android:id="@+id/protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="100dp"
+            android:text="              "
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@id/carbohydrate"
+            app:layout_constraintRight_toLeftOf="@+id/fat"
+            app:layout_constraintTop_toBottomOf="@id/food_weight"/>
+
+        <TextView
+            android:id="@+id/fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="100dp"
+            android:text="              "
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@id/protein"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/food_weight"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </LinearLayout>
