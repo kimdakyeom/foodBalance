@@ -45,8 +45,9 @@
             android:text="0"
             android:textSize="40sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/calories"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -65,7 +66,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="20dp"
             android:layout_marginTop="100dp"
             android:text="              "
             android:textSize="15sp"
@@ -79,7 +80,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="20dp"
             android:layout_marginTop="100dp"
             android:text="              "
             android:textSize="15sp"
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="20dp"
             android:layout_marginTop="100dp"
             android:text="              "
             android:textSize="15sp"
@@ -107,13 +108,105 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="20dp"
             android:layout_marginTop="100dp"
             android:text="              "
             android:textSize="15sp"
             app:layout_constraintLeft_toRightOf="@id/protein"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/food_weight"/>
+
+        <TextView
+            android:id="@+id/Calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="열량(g)"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/cal_g"
+            app:layout_constraintRight_toLeftOf="@+id/carbohydrate"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/cal_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="cal"
+            android:textSize="20sp"
+            android:layout_marginTop="126dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/carbohydrate"
+            app:layout_constraintTop_toBottomOf="@id/food_weight" />
+
+        <TextView
+            android:id="@+id/Carbohydrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탄수화물(g)"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/car_g"
+            app:layout_constraintLeft_toRightOf="@id/calories"
+            app:layout_constraintRight_toLeftOf="@+id/protein"/>
+
+        <TextView
+            android:id="@+id/car_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="car"
+            android:textSize="20sp"
+            android:layout_marginTop="126dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/calories"
+            app:layout_constraintRight_toLeftOf="@+id/protein"
+            app:layout_constraintTop_toBottomOf="@id/food_weight" />
+
+        <TextView
+            android:id="@+id/Protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단백질(g)"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/pro_g"
+            app:layout_constraintLeft_toRightOf="@id/fat"
+            app:layout_constraintRight_toLeftOf="@+id/carbohydrate"/>
+
+        <TextView
+            android:id="@+id/pro_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="pro"
+            android:textSize="20sp"
+            android:layout_marginTop="126dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/carbohydrate"
+            app:layout_constraintRight_toLeftOf="@+id/fat"
+            app:layout_constraintTop_toBottomOf="@id/food_weight" />
+
+        <TextView
+            android:id="@+id/Fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지방(g)"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/fat_g"
+            app:layout_constraintLeft_toRightOf="@+id/protein"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/fat_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="fat"
+            android:textSize="20sp"
+            android:layout_marginTop="126dp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/protein"
+            app:layout_constraintTop_toBottomOf="@id/food_weight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

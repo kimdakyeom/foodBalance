@@ -6,5 +6,5 @@ class FoodInfo(
     var kcal: Double, // 열량
     var carbo: Double, // 탄수화물
     var pro: Double, // 단백질
-    var prov: Double, // 지방
+    var fat: Double, // 지방
 )

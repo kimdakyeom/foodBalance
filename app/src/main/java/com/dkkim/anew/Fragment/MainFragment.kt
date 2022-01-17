@@ -15,6 +15,7 @@ import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentMainBinding
+import com.dkkim.anew.databinding.FragmentSettingUserInfoBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,12 +35,15 @@ class MainFragment : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
 
+        val intent = Intent(context, FoodSearchActivity::class.java)
+        startActivityForResult(intent, 200)
 
         // 음식이름 검색시 액티비티
         binding.searchBtn.setOnClickListener {
             val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
 
             val intent = Intent(requireContext(), FoodSearchActivity()::class.java) // FoodSearchActivity로 화면 전환
+
             intent.putExtra("foodName", foodName) // foodName에 넣은 값 가지고 intent
             startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
         }
@@ -57,11 +61,22 @@ class MainFragment : Fragment() {
                 // 받아온 데이터 이름, 1회 제공량, 칼로리, 탄, 단, 지 저장
                 val service_Name = data?.getStringExtra("service_Name").toString()
                 val service_weight = data?.getStringExtra("service_weight")?.toInt()
-                val kcal = data?.getStringExtra("kcal")?.toDouble()
-                val carbo = data?.getStringExtra("carbo")?.toDouble()
-                val pro = data?.getStringExtra("pro")?.toDouble()
-                val prov = data?.getStringExtra("prov")?.toDouble()
+                val kcal = data?.getDoubleExtra("kcal", 0.0)
+                val carbo = data?.getDoubleExtra("carbo", 0.0)
+                val pro = data?.getDoubleExtra("pro", 0.0)
+                val fat = data?.getDoubleExtra("fat", 0.0)
 
+                Log.d("kcal", kcal.toString())
+                Log.d("carbo", kcal.toString())
+                Log.d("pro", kcal.toString())
+                Log.d("fat", kcal.toString())
+
+                binding.calG.text = kcal.toString()
+                binding.carG.text = carbo.toString()
+                binding.proG.text = pro.toString()
+                binding.fatG.text = fat.toString()
+
+                super.onActivityResult(requestCode, resultCode, data)
             }
         }
     }

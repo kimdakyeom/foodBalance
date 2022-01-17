@@ -97,7 +97,7 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         intent.putExtra("kcal", data.kcal)
         intent.putExtra("carbo", data.carbo)
         intent.putExtra("pro", data.pro)
-        intent.putExtra("prov", data.prov)
+        intent.putExtra("fat", data.fat)
         setResult(RESULT_OK, intent) // 호출된 Activity에 결과 돌려주기
         finish() // Activity 종료
     }
