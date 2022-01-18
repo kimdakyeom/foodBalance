@@ -35,9 +35,6 @@ class MainFragment : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
 
-        val intent = Intent(context, FoodSearchActivity::class.java)
-        startActivityForResult(intent, 200)
-
         // 음식이름 검색시 액티비티
         binding.searchBtn.setOnClickListener {
             val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
