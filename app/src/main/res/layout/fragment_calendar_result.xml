@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,10 +13,10 @@
 
         <ImageView
             android:id="@+id/back_btn"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_white_24" />
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_white_24"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/month_date"
@@ -30,16 +30,94 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="100"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </TextView>
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="하루 권장 칼로리 섭취량" />
+        <TextView
+            android:id="@+id/rec_daily_cal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:padding="10dp"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="하루 권장 탄수화물 섭취량" />
+        <TextView
+            android:id="@+id/rec_daily_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="하루 권장 단백질 섭취량" />
+        <TextView
+            android:id="@+id/rec_daily_pro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="하루 권장 지방 섭취량" />
+        <TextView
+            android:id="@+id/rec_daily_fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:padding="10dp"/>
+    </LinearLayout>
+
 </LinearLayout>
