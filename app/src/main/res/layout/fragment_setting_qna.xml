@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Fragment.SettingQnaFragment">
 
@@ -11,12 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#80EDBB72">
+
         <ImageView
-            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_white_24"/>
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_white_24"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -27,9 +29,96 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/setting_qna_recyclerview"
+    <ScrollView
+        android:id="@+id/bio_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Q1. 하루 열량 필요량 계산법?"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="일반적인 사람들은 체중(kg)에 25~30kcal를 곱한 값이 하루 필요량입니다.\n활동적인 사람들은 40kcal 이상을 곱하여 계산해야 합니다.\n- 가벼운 활동,앉아서 하는 일: 25~30\n- 서서 하는 일(서비스업,판매 등): 30~35\n- 활동량일 많은 일: 35~40\n-	아주 강한 활동: 40~\n*같은 체중이더라도 활동량에 따라 300~500kcal 이상 달라질 수 있습니다."
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Q2. 탄수화물 하루 권장 섭취량 계산법?"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="탄수화물은 총 열량의 45~65%를 섭취해야 합니다.\n나이,성별,체형,활동 수준이 사람마다 다르므로 차이가 있습니다.\n수준이 다르기 때문에 약간의 차이가 있음.\n(총 열량 x 0.5)/4 = g - 50% 기준"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Q3. 단백질 하루 권장 섭취량 계산법?"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="체중 1kg당 0.8~2g섭취하는 것이 좋습니다."
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Q4. 지방 하루 권장 섭취량 계산법?"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="지방은 총 열량의 15~30%를 섭취해야 합니다.\n(총 열량 x 0.25)/9 = g - 25% 기준"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Q5. 체중감량을 위해서는하루 열량 섭취량을얼마나 조절해야하나요?"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="1kg 감량을 위해서는 7,000kcal를 줄여야 합니다.\n보통 일주일에 0.5kg 감량을 권장하여,하루에 대략 500kcal정도조절하여 하루 섭취량을 계산하면 됩니다."
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
