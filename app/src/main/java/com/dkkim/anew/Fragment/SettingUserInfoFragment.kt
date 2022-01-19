@@ -23,7 +23,7 @@ class SettingUserInfoFragment : Fragment() {
     val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("UserAccount")
 
     // UserAccount에 uid는 firebase.auth에서 가져옴
-    var user = UserAccount(Firebase.auth.uid, null, null, null, null, null, null, null)
+    var user = UserAccount(Firebase.auth.currentUser?.uid, null, null, null, null, null, null, null)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +76,8 @@ class SettingUserInfoFragment : Fragment() {
         )
 
         // 하위 노드를 모두 업데이트
-        reference.child("").child(updateUserAccount["uid"].toString()).updateChildren(updateUserAccount)
+        reference.child("").child(updateUserAccount["uid"].toString())
+            .updateChildren(updateUserAccount)
     }
 
     private fun initUserInfo(uid: String) {
@@ -95,6 +96,9 @@ class SettingUserInfoFragment : Fragment() {
                 map["height"].toString(),
                 map["weight"].toString()
             )
+
+            Log.i("currentfirebase", Firebase.auth.uid.toString())
+
             binding.userName.setText(user.name)
             binding.userEmail.text = user.email
 
@@ -107,6 +111,8 @@ class SettingUserInfoFragment : Fragment() {
             binding.userHeightEdit.setText(user.height)
             binding.userWeightEdit.setText(user.weight)
 
+
+            Log.i("birth", user.birth.toString())
         }
 
 

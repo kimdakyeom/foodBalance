@@ -42,13 +42,13 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="하루 권장 칼로리 섭취량" />
-        <TextView
-            android:id="@+id/rec_daily_cal"
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:padding="10dp"/>
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/progressbar"
+            android:max="100"
+            android:id="@+id/progress_fat" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,13 +65,13 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="하루 권장 탄수화물 섭취량" />
-        <TextView
-            android:id="@+id/rec_daily_car"
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:padding="10dp"/>
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/progressbar"
+            android:max="100"
+            android:id="@+id/progress_fat" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,13 +88,13 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="하루 권장 단백질 섭취량" />
-        <TextView
-            android:id="@+id/rec_daily_pro"
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:padding="10dp"/>
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/progressbar"
+            android:max="100"
+            android:id="@+id/progress_fat" />
     </LinearLayout>
 
     <LinearLayout
@@ -111,13 +111,13 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="하루 권장 지방 섭취량" />
-        <TextView
-            android:id="@+id/rec_daily_fat"
+        <ProgressBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:padding="10dp"/>
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/progressbar"
+            android:max="100"
+            android:id="@+id/progress_fat" />
     </LinearLayout>
 
 </LinearLayout>

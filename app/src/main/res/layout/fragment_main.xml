@@ -208,6 +208,15 @@
             app:layout_constraintLeft_toRightOf="@+id/protein"
             app:layout_constraintTop_toBottomOf="@id/food_weight" />
 
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fat" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
