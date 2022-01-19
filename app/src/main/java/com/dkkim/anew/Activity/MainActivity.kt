@@ -36,11 +36,6 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val bundle = Bundle() // 프래그먼트에 값 전달하는 주머니
 
         when (item.itemId) {
-            R.id.calendar -> { // 레이아웃에 calendar 선택시
-                // CalendarFragment로 변환 선언
-                val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, CalendarFragment::class.java.name)
-                replaceFragment(fragment, bundle) // 프래그먼트 전환 함수에 MainFragment와 전달할 값 주머니 넣기
-            }
             R.id.home -> {
                 val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, MainFragment::class.java.name)
                 replaceFragment(fragment, bundle) // 프래그먼트 전환 함수에 MainFragment와 전달할 값 주머니 넣기
@@ -48,6 +43,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             R.id.diet -> {
                 val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, DietFragment::class.java.name)
                 replaceFragment(fragment, bundle) // 프래그먼트 전환 함수에 DietFragment와 전달할 값 주머니 넣기
+            }
+            R.id.calendar -> { // 레이아웃에 calendar 선택시
+                // CalendarFragment로 변환 선언
+                val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, CalendarFragment::class.java.name)
+                replaceFragment(fragment, bundle) // 프래그먼트 전환 함수에 MainFragment와 전달할 값 주머니 넣기
             }
             R.id.setting -> {
                 val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, SettingFragment::class.java.name)

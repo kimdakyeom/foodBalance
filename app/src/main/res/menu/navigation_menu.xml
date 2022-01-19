@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="" />
+
+    <item
+        android:id="@+id/diet"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_pencil_24"
+        android:title="" />
+
+    <item
         android:id="@+id/calendar"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_calendar_today_24"
         android:title="" />
 
-    <item
-        android:id="@+id/home"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_menu_24"
-        android:title="" />
-    <item
-        android:id="@+id/diet"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_apple_24"
-        android:title="" />
     <item
         android:id="@+id/setting"
         android:enabled="true"

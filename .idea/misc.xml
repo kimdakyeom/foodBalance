@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable-v24/ic_baseline_home_24.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/button_background.xml" value="0.3296296296296296" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/edit_text_background.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_apple_24.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_white_24.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_pencil_24.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_food_search.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_join.xml" value="0.16160081053698075" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_login.xml" value="0.33229166666666665" />
@@ -12,12 +21,15 @@
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/food_result_item.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_calendar.xml" value="0.22" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_calendar_result.xml" value="0.33" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_diet.xml" value="0.14361702127659576" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting_avg_nutri.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting_qna.xml" value="0.34459459459459457" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting_user_info.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/item_setting.xml" value="0.21195652173913043" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/menu/navigation_menu.xml" value="0.15462962962962962" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17777777777777778" />
         <entry key="..\:/Users/kimda/Desktop/dk/new/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/kimda/Desktop/dk/new/app/src/main/res/layout/activity_food_search.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/kimda/Desktop/dk/new/app/src/main/res/layout/activity_foodresult.xml" value="0.17603850050658562" />
