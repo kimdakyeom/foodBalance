@@ -111,8 +111,8 @@ class SettingUserInfoFragment : Fragment() {
             binding.userHeightEdit.setText(user.height)
             binding.userWeightEdit.setText(user.weight)
 
+            Log.i("currentfirebase", Firebase.auth.uid.toString())
 
-            Log.i("birth", user.birth.toString())
         }
 
 

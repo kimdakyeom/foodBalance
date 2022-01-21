@@ -53,7 +53,7 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
             for (item in items.body.items) { // items.body.items 객체를 하나씩 item에 담기
                 val i = FoodInfo(
                     item.DESC_KOR,
-                    item.SERVING_WT.toInt(),
+                    item.SERVING_WT.toDouble(),
                     item.NUTR_CONT1.toDouble(),
                     item.NUTR_CONT2.toDouble(),
                     item.NUTR_CONT3.toDouble(),

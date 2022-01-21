@@ -1,5 +1,6 @@
 package com.dkkim.anew.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import androidx.fragment.app.Fragment
+import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentCalendarBinding
 import kotlinx.android.synthetic.main.fragment_calendar.*
@@ -58,15 +60,6 @@ class CalendarFragment : Fragment() {
                     .commit()
             }
         })
-    }
-
-    private fun getDietList(year: Int, month: Int, dayOfMonth: Int) {
-        // 서버에서 날짜에 해당하는 식단 리스트 불러오기
-//        val dietList = arrayListOf<>()
-
-//        리사이클러뷰 어댑터에 붙이기
-//        setDietList(dietList)
-//        setDietList(dietList)
     }
 }
 
