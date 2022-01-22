@@ -1,5 +1,6 @@
 package com.dkkim.anew.Activity
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -14,6 +15,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 
 class JoinActivity : AppCompatActivity() {
@@ -23,6 +27,7 @@ class JoinActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth // firebaseAuth 인스턴스 선언
 
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -78,8 +83,8 @@ class JoinActivity : AppCompatActivity() {
                             ) // UserAccount 모댈 변수
 
                             val db: FirebaseDatabase = FirebaseDatabase.getInstance() // FirebaseDatabase 인스턴스 초기화
-                            val reference: DatabaseReference = db.getReference("UserAccount") // DatabaseReference를 매개체 삼아 읽기/쓰기
-                            reference.child(uid.toString()).setValue(account) // reference에서 하위 값의 uid를 account에 즉시 값 변경
+                            val reference: DatabaseReference = db.getReference("User") // DatabaseReference를 매개체 삼아 읽기/쓰기
+                            reference.child(uid.toString()).child("account").setValue(account) // reference에서 하위 값의 uid를 account에 즉시 값 변경
 
                             // 가입성공시 join액티비티 빠져나와 login액티비티로
                             val intent = Intent(this@JoinActivity, LoginActivity::class.java)

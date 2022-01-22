@@ -14,12 +14,17 @@ import com.dkkim.anew.Model.UserAccount
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.item_diet.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 
 class MainFragment: Fragment() {
+    private val data: Intent? = null
     lateinit var binding: FragmentMainBinding // 프래그먼트 바인딩
     private val retrofit = RetrofitClient.create() // 레트로핏 클라이언트 선언
     private lateinit var firebaseAuth: FirebaseAuth
@@ -45,7 +50,8 @@ class MainFragment: Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.saveBtn.setOnClickListener {
-            putInfo()
+
+            putInfo(data)
         }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
@@ -60,15 +66,15 @@ class MainFragment: Fragment() {
         if (requestCode == 200) { // FoodSearchActivity이면
             if (resultCode == Activity.RESULT_OK) { // 음식 검색결과 액티비티에에서 선택한 음식명
                 // 받아온 데이터 이름, 1회 제공량, 칼로리, 탄, 단, 지 저장
-                val kcal = data?.getDoubleExtra("kcal", 0.0)
+                var kcal = data?.getDoubleExtra("kcal", 0.0)
                 val carbo = data?.getDoubleExtra("carbo", 0.0)
                 val pro = data?.getDoubleExtra("pro", 0.0)
                 val fat = data?.getDoubleExtra("fat", 0.0)
 
                 Log.d("kcal", kcal.toString())
-                Log.d("carbo", kcal.toString())
-                Log.d("pro", kcal.toString())
-                Log.d("fat", kcal.toString())
+                Log.d("carbo", carbo.toString())
+                Log.d("pro", pro.toString())
+                Log.d("fat", fat.toString())
 
                 binding.calG.text = kcal.toString()
                 binding.carG.text = carbo.toString()
@@ -76,11 +82,17 @@ class MainFragment: Fragment() {
                 binding.fatG.text = fat.toString()
 
                 super.onActivityResult(requestCode, resultCode, data)
+
             }
         }
     }
 
     private fun putInfo(data: Intent?){
+        val user: FirebaseUser? = firebaseAuth.currentUser
+
+        val today = System.currentTimeMillis()
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
+
         val food_Name = data?.getStringExtra("food_Name").toString()
         val service_Name = data?.getStringExtra("service_Name").toString()
         val service_Weight = data?.getDoubleExtra("service_Weight", 0.0)
@@ -100,7 +112,7 @@ class MainFragment: Fragment() {
         )
 
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-        val reference: DatabaseReference = db.getReference("FoodInfo")
-        reference.child("UserAccount").child("uid").setValue(foodInfo)
+        val reference: DatabaseReference = db.getReference("User")
+        reference.child(user!!.uid).child(simpleDateFormat).setValue(foodInfo)
     }
 }
