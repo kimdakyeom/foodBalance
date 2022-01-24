@@ -77,7 +77,7 @@ class SettingUserInfoFragment : Fragment() {
         )
 
         // 하위 노드를 모두 업데이트
-        reference.child(user.uid.toString()).child("account").child(updateUserAccount["uid"].toString())
+        reference.child("").child("account").child(updateUserAccount["uid"].toString())
             .updateChildren(updateUserAccount)
     }
 
