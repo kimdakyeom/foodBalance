@@ -1,5 +1,6 @@
 package com.dkkim.anew.Fragment
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,8 +11,8 @@ import com.dkkim.anew.Model.UserAccount
 import com.dkkim.anew.databinding.FragmentSettingUserInfoBinding
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 
@@ -76,46 +77,57 @@ class SettingUserInfoFragment : Fragment() {
         )
 
         // 하위 노드를 모두 업데이트
-        reference.child("").child(updateUserAccount["uid"].toString())
+        reference.child(user.uid.toString()).child("account").child(updateUserAccount["uid"].toString())
             .updateChildren(updateUserAccount)
     }
 
     private fun initUserInfo(uid: String) {
         // 기본정보 등록되어있을 시 파이어베이스에서 uid로 유저정보 받아오기 (이름, 이메일)
 
-        reference.get().addOnSuccessListener {
-            val map = it.child("").children.iterator().next().value as HashMap<*, *>
+        reference.addValueEventListener(object : ValueEventListener {
 
-            user = UserAccount(
-                map["uid"].toString(),
-                map["email"].toString(),
-                map["name"].toString(),
-                map["pwd1"].toString(),
-                map["sex"] as Boolean,
-                map["birth"].toString(),
-                map["height"].toString(),
-                map["weight"].toString()
-            )
+            override fun onDataChange(snapshot: DataSnapshot) {
 
-            Log.i("currentfirebase", Firebase.auth.uid.toString())
+                for (snapshotChild in snapshot.children) {
 
-            binding.userName.setText(user.name)
-            binding.userEmail.text = user.email
+                    val user = snapshotChild.getValue()
 
-            if (user.sex != null) {
-                binding.userSexFemale.isChecked = user.sex!!
-                binding.userSexMale.isChecked = !user.sex!!
+                    System.out.println(user)
+
+                    val birth = snapshotChild.child("account").child("birth").getValue().toString()
+                    val email = snapshotChild.child("account").child("email").getValue().toString()
+                    val height = snapshotChild.child("account").child("height").getValue().toString()
+                    var name = snapshotChild.child("account").child("name").getValue().toString()
+                    val pw1 = snapshotChild.child("account").child("pw1").getValue().toString()
+                    var sex = snapshotChild.child("account").child("sex").getValue().toString()
+                    val uid = snapshotChild.child("account").child("uid").getValue().toString()
+                    val weight = snapshotChild.child("account").child("weight").getValue().toString()
+
+                    System.out.println(birth)
+                    System.out.println(name)
+
+                    binding.userName.text = name
+                    binding.userEmail.text = email
+                    if(sex == "true") {
+                        binding.userSexFemale.isChecked = true
+                        binding.userSexMale.isChecked = false
+                    }
+                    else {
+                        binding.userSexMale.isChecked = true
+                        binding.userSexFemale.isChecked = false
+                    }
+                    binding.userBirthEdit.setText(birth)
+                    binding.userHeightEdit.setText(height)
+                    binding.userWeightEdit.setText(weight)
+
+                }
+                //Log.d("Success", "Yas")
             }
 
-            binding.userBirthEdit.setText(user.birth)
-            binding.userHeightEdit.setText(user.height)
-            binding.userWeightEdit.setText(user.weight)
-
-            Log.i("currentfirebase", Firebase.auth.uid.toString())
-
-        }
-
-
+            override fun onCancelled(error: DatabaseError) {
+                //Log.w("Error", "Failed to read value.", error.toException())
+            }
+        })
     }
-
 }
+

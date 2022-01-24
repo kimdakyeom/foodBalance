@@ -58,7 +58,7 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
                     item.NUTR_CONT1.toDouble(),
                     item.NUTR_CONT2.toDouble(),
                     item.NUTR_CONT3.toDouble(),
-                    item.NUTR_CONT4.toDouble()
+                    item.NUTR_CONT4.toDouble(),
                 )
                 listItems.add(i) // listItem에 FoodInfo 차례대로 담기
             }

@@ -10,16 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Model.FoodInfo
-import com.dkkim.anew.Model.UserAccount
-import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.item_diet.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 
@@ -101,6 +97,9 @@ class MainFragment: Fragment() {
         val pro = data?.getDoubleExtra("pro", 0.0)
         val fat = data?.getDoubleExtra("fat", 0.0)
 
+        Log.d("foodname", food_Name)
+        Log.d("kcal", kcal.toString())
+
         val foodInfo = FoodInfo(
             food_Name,
             service_Name,
@@ -112,7 +111,7 @@ class MainFragment: Fragment() {
         )
 
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-        val reference: DatabaseReference = db.getReference("User")
+        val reference: DatabaseReference = db.getReference("UserAccount")
         reference.child(user!!.uid).child(simpleDateFormat).setValue(foodInfo)
     }
 }
