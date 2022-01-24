@@ -62,6 +62,9 @@ class MainFragment: Fragment() {
         if (requestCode == 200) { // FoodSearchActivity이면
             if (resultCode == Activity.RESULT_OK) { // 음식 검색결과 액티비티에에서 선택한 음식명
                 // 받아온 데이터 이름, 1회 제공량, 칼로리, 탄, 단, 지 저장
+                val food_Name = data?.getStringExtra("food_Name").toString()
+                val service_Name = data?.getStringExtra("service_Name").toString()
+                val service_Weight = data?.getDoubleExtra("service_Weight", 0.0)
                 var kcal = data?.getDoubleExtra("kcal", 0.0)
                 val carbo = data?.getDoubleExtra("carbo", 0.0)
                 val pro = data?.getDoubleExtra("pro", 0.0)

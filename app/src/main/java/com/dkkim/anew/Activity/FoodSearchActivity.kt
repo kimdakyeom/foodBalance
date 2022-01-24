@@ -95,6 +95,7 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         // 데이터 가지고 intent
         intent.putExtra("service_Name", data.food_Name)
         intent.putExtra("service_weight", data.serving_Weight)
+        intent.putExtra("service_Name", data.service_Name)
         intent.putExtra("kcal", data.kcal)
         intent.putExtra("carbo", data.carbo)
         intent.putExtra("pro", data.pro)
