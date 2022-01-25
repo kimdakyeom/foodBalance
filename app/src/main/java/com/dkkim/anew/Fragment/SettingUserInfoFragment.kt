@@ -20,9 +20,6 @@ class SettingUserInfoFragment : Fragment() {
 
     lateinit var binding: FragmentSettingUserInfoBinding
 
-    // Realtime Database에서 Data를 읽기위해 DatabaseReference 인스턴스 선언
-    val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("UserAccount")
-
     // UserAccount에 uid는 firebase.auth에서 가져옴
     var user = UserAccount(Firebase.auth.currentUser?.uid, null, null, null, null, null, null, null)
 
@@ -65,11 +62,10 @@ class SettingUserInfoFragment : Fragment() {
         height: String,
         weight: String
     ) {
+        val mDatabase = FirebaseDatabase.getInstance().getReference()
+
         val updateUserAccount = mapOf<String, Any>(
-            "uid" to user.uid.toString(),
-            "email" to user.email.toString(),
             "name" to name,
-            "pwd1" to user.pwd1.toString(),
             "sex" to sex,
             "birth" to birth,
             "height" to height,
@@ -77,8 +73,7 @@ class SettingUserInfoFragment : Fragment() {
         )
 
         // 하위 노드를 모두 업데이트
-        reference.child("").child("account").child(updateUserAccount["uid"].toString())
-            .updateChildren(updateUserAccount)
+        mDatabase.child("UserAccount").child(user.uid.toString()).child("account").updateChildren(updateUserAccount)
     }
 
     private fun initUserInfo(uid: String) {
