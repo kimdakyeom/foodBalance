@@ -83,8 +83,8 @@ class SettingUserInfoFragment : Fragment() {
 
     private fun initUserInfo(uid: String) {
         // 기본정보 등록되어있을 시 파이어베이스에서 uid로 유저정보 받아오기 (이름, 이메일)
-
-        reference.addValueEventListener(object : ValueEventListener {
+        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
+        mDatabase.child(user.uid.toString()).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -94,25 +94,24 @@ class SettingUserInfoFragment : Fragment() {
 
                     System.out.println(user)
 
-                    val birth = snapshotChild.child("account").child("birth").getValue().toString()
-                    val email = snapshotChild.child("account").child("email").getValue().toString()
-                    val height = snapshotChild.child("account").child("height").getValue().toString()
-                    var name = snapshotChild.child("account").child("name").getValue().toString()
-                    val pw1 = snapshotChild.child("account").child("pw1").getValue().toString()
-                    var sex = snapshotChild.child("account").child("sex").getValue().toString()
-                    val uid = snapshotChild.child("account").child("uid").getValue().toString()
-                    val weight = snapshotChild.child("account").child("weight").getValue().toString()
+                    val birth = snapshotChild.child("birth").getValue().toString()
+                    val email = snapshotChild.child("email").getValue().toString()
+                    val height = snapshotChild.child("height").getValue().toString()
+                    var name = snapshotChild.child("name").getValue().toString()
+                    val pw1 = snapshotChild.child("pw1").getValue().toString()
+                    var sex = snapshotChild.child("sex").getValue().toString()
+                    val uid = snapshotChild.child("uid").getValue().toString()
+                    val weight = snapshotChild.child("weight").getValue().toString()
 
                     System.out.println(birth)
                     System.out.println(name)
 
                     binding.userName.text = name
                     binding.userEmail.text = email
-                    if(sex == "true") {
+                    if (sex == "true") {
                         binding.userSexFemale.isChecked = true
                         binding.userSexMale.isChecked = false
-                    }
-                    else {
+                    } else {
                         binding.userSexMale.isChecked = true
                         binding.userSexFemale.isChecked = false
                     }
@@ -130,4 +129,3 @@ class SettingUserInfoFragment : Fragment() {
         })
     }
 }
-
