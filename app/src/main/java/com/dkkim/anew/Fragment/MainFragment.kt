@@ -13,8 +13,10 @@ import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -91,7 +93,7 @@ class MainFragment: Fragment() {
     }
 
     private fun putInfo(food_Name: String, service_Name: String, service_Weight: Double, kcal: Double, carbo: Double, pro: Double, fat: Double){
-        val user: FirebaseUser? = firebaseAuth.currentUser
+        val mDatabase = FirebaseDatabase.getInstance().reference
 
         val today = System.currentTimeMillis()
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
@@ -108,6 +110,6 @@ class MainFragment: Fragment() {
 
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
         val reference: DatabaseReference = db.getReference("UserAccount")
-        reference.child(user!!.uid).child(simpleDateFormat).setValue(foodInfo)
+        mDatabase.child("UserAccount").child(Firebase.auth.currentUser!!.uid.toString()).child(simpleDateFormat).push().setValue(foodInfo)
     }
 }
