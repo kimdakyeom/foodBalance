@@ -93,8 +93,8 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
     override fun onItemClick(view: View, data: FoodInfo, position: Int) {
         val intent = Intent() // 화면 전환
         // 데이터 가지고 intent
-        intent.putExtra("service_Name", data.food_Name)
-        intent.putExtra("service_weight", data.serving_Weight)
+        intent.putExtra("food_Name", data.food_Name)
+        intent.putExtra("service_Weight", data.serving_Weight)
         intent.putExtra("service_Name", data.service_Name)
         intent.putExtra("kcal", data.kcal)
         intent.putExtra("carbo", data.carbo)
@@ -102,6 +102,9 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         intent.putExtra("fat", data.fat)
         setResult(RESULT_OK, intent) // 호출된 Activity에 결과 돌려주기
         finish() // Activity 종료
+
+        System.out.println(data.food_Name)
+
     }
 
 }

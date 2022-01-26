@@ -25,6 +25,14 @@ class MainFragment: Fragment() {
     private val retrofit = RetrofitClient.create() // 레트로핏 클라이언트 선언
     private lateinit var firebaseAuth: FirebaseAuth
 
+    private var food_Name: String = ""
+    private var service_Name: String = ""
+    private var service_Weight: Double = 0.0
+    private var kcal: Double = 0.0
+    private var carbo: Double = 0.0
+    private var pro: Double = 0.0
+    private var fat: Double = 0.0
+
     // 공공데이터 open api 디코딩키 선언
     private val foodNutriDecodingKey =
         "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
@@ -47,7 +55,7 @@ class MainFragment: Fragment() {
 
         binding.saveBtn.setOnClickListener {
 
-            putInfo(data)
+            putInfo(food_Name, service_Name, service_Weight, kcal, carbo, pro, fat)
         }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
@@ -62,18 +70,14 @@ class MainFragment: Fragment() {
         if (requestCode == 200) { // FoodSearchActivity이면
             if (resultCode == Activity.RESULT_OK) { // 음식 검색결과 액티비티에에서 선택한 음식명
                 // 받아온 데이터 이름, 1회 제공량, 칼로리, 탄, 단, 지 저장
-                val food_Name = data?.getStringExtra("food_Name").toString()
-                val service_Name = data?.getStringExtra("service_Name").toString()
-                val service_Weight = data?.getDoubleExtra("service_Weight", 0.0)
-                var kcal = data?.getDoubleExtra("kcal", 0.0)
-                val carbo = data?.getDoubleExtra("carbo", 0.0)
-                val pro = data?.getDoubleExtra("pro", 0.0)
-                val fat = data?.getDoubleExtra("fat", 0.0)
+                food_Name = data?.getStringExtra("food_Name").toString()
+                service_Name = data?.getStringExtra("service_Name").toString()
+                service_Weight = data!!.getDoubleExtra("service_Weight", 0.0)
+                kcal = data.getDoubleExtra("kcal", 0.0)
+                carbo = data.getDoubleExtra("carbo", 0.0)
+                pro = data.getDoubleExtra("pro", 0.0)
+                fat = data.getDoubleExtra("fat", 0.0)
 
-                Log.d("kcal", kcal.toString())
-                Log.d("carbo", carbo.toString())
-                Log.d("pro", pro.toString())
-                Log.d("fat", fat.toString())
 
                 binding.calG.text = kcal.toString()
                 binding.carG.text = carbo.toString()
@@ -86,22 +90,11 @@ class MainFragment: Fragment() {
         }
     }
 
-    private fun putInfo(data: Intent?){
+    private fun putInfo(food_Name: String, service_Name: String, service_Weight: Double, kcal: Double, carbo: Double, pro: Double, fat: Double){
         val user: FirebaseUser? = firebaseAuth.currentUser
 
         val today = System.currentTimeMillis()
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
-
-        val food_Name = data?.getStringExtra("food_Name").toString()
-        val service_Name = data?.getStringExtra("service_Name").toString()
-        val service_Weight = data?.getDoubleExtra("service_Weight", 0.0)
-        val kcal = data?.getDoubleExtra("kcal", 0.0)
-        val carbo = data?.getDoubleExtra("carbo", 0.0)
-        val pro = data?.getDoubleExtra("pro", 0.0)
-        val fat = data?.getDoubleExtra("fat", 0.0)
-
-        Log.d("foodname", food_Name)
-        Log.d("kcal", kcal.toString())
 
         val foodInfo = FoodInfo(
             food_Name,
