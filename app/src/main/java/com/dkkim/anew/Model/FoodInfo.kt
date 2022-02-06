@@ -4,7 +4,6 @@ import android.widget.TextView
 
 data class FoodInfo(
     val food_Name: String?,
-    val service_Name: String?,  // 가공업체
     val serving_Weight: Double?,
     val kcal: Double?, // 열량
     val carbo: Double?, // 탄수화물

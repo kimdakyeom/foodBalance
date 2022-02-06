@@ -53,7 +53,6 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
             for (item in items.body.items) { // items.body.items 객체를 하나씩 item에 담기
                 val i = FoodInfo(
                     item.DESC_KOR,
-                    item.ANIMAL_PLANT,
                     item.SERVING_WT.toDouble(),
                     item.NUTR_CONT1.toDouble(),
                     item.NUTR_CONT2.toDouble(),
@@ -95,7 +94,6 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         // 데이터 가지고 intent
         intent.putExtra("food_Name", data.food_Name)
         intent.putExtra("service_Weight", data.serving_Weight)
-        intent.putExtra("service_Name", data.service_Name)
         intent.putExtra("kcal", data.kcal)
         intent.putExtra("carbo", data.carbo)
         intent.putExtra("pro", data.pro)

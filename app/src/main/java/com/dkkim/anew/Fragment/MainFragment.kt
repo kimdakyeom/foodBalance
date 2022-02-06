@@ -26,7 +26,6 @@ class MainFragment: Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
 
     private var food_Name: String = ""
-    private var service_Name: String = ""
     private var service_Weight: Double = 0.0
     private var kcal: Double = 0.0
     private var carbo: Double = 0.0
@@ -55,7 +54,7 @@ class MainFragment: Fragment() {
 
         binding.saveBtn.setOnClickListener {
 
-            putInfo(food_Name, service_Name, service_Weight, kcal, carbo, pro, fat)
+            putInfo(food_Name, service_Weight, kcal, carbo, pro, fat)
         }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
@@ -71,7 +70,6 @@ class MainFragment: Fragment() {
             if (resultCode == Activity.RESULT_OK) { // 음식 검색결과 액티비티에에서 선택한 음식명
                 // 받아온 데이터 이름, 1회 제공량, 칼로리, 탄, 단, 지 저장
                 food_Name = data?.getStringExtra("food_Name").toString()
-                service_Name = data?.getStringExtra("service_Name").toString()
                 service_Weight = data!!.getDoubleExtra("service_Weight", 0.0)
                 kcal = data.getDoubleExtra("kcal", 0.0)
                 carbo = data.getDoubleExtra("carbo", 0.0)
@@ -90,7 +88,7 @@ class MainFragment: Fragment() {
         }
     }
 
-    private fun putInfo(food_Name: String, service_Name: String, service_Weight: Double, kcal: Double, carbo: Double, pro: Double, fat: Double){
+    private fun putInfo(food_Name: String, service_Weight: Double, kcal: Double, carbo: Double, pro: Double, fat: Double){
         val mDatabase = FirebaseDatabase.getInstance().reference
 
         val today = System.currentTimeMillis()
@@ -98,7 +96,6 @@ class MainFragment: Fragment() {
 
         val foodInfo = FoodInfo(
             food_Name,
-            service_Name,
             service_Weight,
             kcal,
             carbo,

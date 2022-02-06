@@ -34,7 +34,7 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
     // View에 내용 입력
     override fun onBindViewHolder(holder: DietAdapter.DietViewHolder, position: Int) {
         holder.food_name.text = dietList.get(position).food_Name
-        holder.food_weight.text = dietList.get(position).service_Name.toString()
+        holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
         holder.food_car.text = dietList.get(position).carbo.toString()
         holder.food_pro.text = dietList.get(position).pro.toString()
