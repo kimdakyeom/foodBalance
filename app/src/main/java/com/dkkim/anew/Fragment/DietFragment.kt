@@ -51,8 +51,11 @@ class DietFragment : Fragment() {
 
         val dietAdpater = DietAdapter(dietList)
 
+        val today = System.currentTimeMillis()
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
 
-        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child("2022-02-07").addValueEventListener(object : ValueEventListener {
+
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
