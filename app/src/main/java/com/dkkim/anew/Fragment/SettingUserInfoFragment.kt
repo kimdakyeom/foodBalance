@@ -79,7 +79,7 @@ class SettingUserInfoFragment : Fragment() {
     private fun initUserInfo(uid: String) {
         // 기본정보 등록되어있을 시 파이어베이스에서 uid로 유저정보 받아오기 (이름, 이메일)
         val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
-        mDatabase.child(user.uid.toString()).addValueEventListener(object : ValueEventListener {
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
