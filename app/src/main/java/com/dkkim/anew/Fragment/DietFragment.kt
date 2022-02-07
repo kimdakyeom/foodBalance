@@ -54,13 +54,14 @@ class DietFragment : Fragment() {
         val dietAdpater = DietAdapter(dietList)
 
 
-        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).addValueEventListener(object : ValueEventListener {
+        mDatabase.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 dietList.clear()
                 for (snapshotChild in snapshot.children) {
-                    val getData = snapshotChild.child("Account").getValue(FoodInfo::class.java)
+                    val getData = snapshotChild.getValue(FoodInfo::class.java)
+
                     dietList.add(getData!!)
                 }
                 dietAdpater.notifyDataSetChanged()
