@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.DietFragment">
+    tools:context=".Fragment.DietFragment"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/month_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="today's eating"
+        android:gravity="center"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/main_color"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/dietRecyclerView"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_diet"/>
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_diet" />
 
-</FrameLayout>
+</LinearLayout>

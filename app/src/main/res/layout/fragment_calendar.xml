@@ -12,20 +12,13 @@
         android:layout_height="50dp"
         android:background="#80EDBB72">
 
-        <ImageView
-            android:id="@+id/back_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_white_24" />
-
         <TextView
             android:id="@+id/calendarText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="칼로리 캘린더"
+            android:text="Diet Calendar"
             tools:ignore="MissingConstraints">
         </TextView>
 

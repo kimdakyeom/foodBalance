@@ -28,11 +28,6 @@ class CalendarFragment : Fragment() {
 
         binding.calendarView.onDateClick(this)
 
-        // 뒤로가기 버튼
-        binding.backBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
 

@@ -29,10 +29,6 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
         binding.monthDate.text = "$month/$day"
         Log.d("월일", "$month/$day")
 
-        // 뒤로가기 버튼
-        binding.backBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
 
