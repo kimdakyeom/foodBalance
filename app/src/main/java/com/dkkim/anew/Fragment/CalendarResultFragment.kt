@@ -57,48 +57,38 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
         val proArray = arrayListOf<Double>()
         val fatArray = arrayListOf<Double>()
 
-        var kcalsum : Double = 0.0
-        var carbosum : Double = 0.0
-        var prosum : Double = 0.0
-        var fatsum : Double = 0.0
+        var kcalsum: Double = 0.0
+        var carbosum: Double = 0.0
+        var prosum: Double = 0.0
+        var fatsum: Double = 0.0
 
 
         val today = System.currentTimeMillis()
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
 
-        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).addValueEventListener(object : ValueEventListener {
+
+
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).addValueEventListener(
+            object : ValueEventListener {
 
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     kcalArray.clear()
                     for (snapshotChild in snapshot.children) {
-                        val sex = snapshotChild.child("sex").getValue().toString()
+
                         val userAccount = snapshotChild.getValue()
                         val kcal = snapshotChild.child("kcal").getValue().toString().toDouble()
                         val carbo = snapshotChild.child("carbo").getValue().toString().toDouble()
                         val pro = snapshotChild.child("pro").getValue().toString().toDouble()
                         val fat = snapshotChild.child("fat").getValue().toString().toDouble()
 
-                        if(sex == "true") {
-                            progress_cal.max = 3468
-                            progress_car.max = 434
-                            progress_pro.max = 116
-                            progress_fat.max = 96
-                        }
-                        else {
-                            progress_cal.max = 4332
-                            progress_car.max = 542
-                            progress_pro.max = 145
-                            progress_fat.max = 120
-                        }
-
                         kcalArray.add(kcal)
                         carboArray.add(carbo)
                         proArray.add(pro)
                         fatArray.add(fat)
 
-
                     }
+
 
                     for (i in kcalArray.indices) {
                         kcalsum += kcalArray[i]
@@ -116,6 +106,7 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                         fatsum += fatArray[i]
                     }
 
+
                     println(kcalArray)
                     println(kcalsum)
                     println(carboArray)
@@ -131,9 +122,44 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.w("DietFragment", "Failed to read value.", error.toException())
+                    Log.w("DietFragment2", "Failed to read value.", error.toException())
                 }
             })
+
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).addValueEventListener(
+            object :ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (snapshotChild in snapshot.children) {
+                        val sex = snapshotChild.child("sex").getValue().toString()
+
+                        Log.i("TAG: sex is", sex)
+
+                        if (sex == "true") {
+                            progress_cal.max = 3468
+                            progress_car.max = 434
+                            progress_pro.max = 116
+                            progress_fat.max = 96
+                        } else {
+                            progress_cal.max = 4332
+                            progress_car.max = 542
+                            progress_pro.max = 145
+                            progress_fat.max = 120
+                        }
+
+                    }
+
+                    progress_cal.progress = kcalsum.toInt()
+                    progress_car.progress = carbosum.toInt()
+                    progress_pro.progress = prosum.toInt()
+                    progress_fat.progress = fatsum.toInt()
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.w("DietFragment1", "Failed to read value.", error.toException())
+                }
+            })
+
     }
 
 }
