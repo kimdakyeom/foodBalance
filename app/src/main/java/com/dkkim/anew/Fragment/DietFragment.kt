@@ -41,8 +41,6 @@ class DietFragment : Fragment() {
     private val dietList = arrayList<FoodInfo>()
     lateinit var dietRecyclerView: RecyclerView
 
-    var user = FoodInfo(null, null, null, null, null, null)
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +52,7 @@ class DietFragment : Fragment() {
         val dietAdpater = DietAdapter(dietList)
 
 
-        mDatabase.addValueEventListener(object : ValueEventListener {
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child("2022-02-07").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -75,7 +73,7 @@ class DietFragment : Fragment() {
         binding.dietRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.dietRecyclerView.setHasFixedSize(true)
-        binding.dietRecyclerView.adapter = DietAdapter(dietList)
+        binding.dietRecyclerView.adapter = dietAdpater
 
 
         return binding.root
