@@ -92,7 +92,7 @@ class MainFragment: Fragment() {
         val mDatabase = FirebaseDatabase.getInstance().reference
 
         val today = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
+        val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
 
         val foodInfo = FoodInfo(
             food_Name,

@@ -19,9 +19,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_calendar_result.*
-import sun.bob.mcalendarview.vo.DateData
 import java.text.SimpleDateFormat
 import java.util.*
+import sun.bob.mcalendarview.vo.DateData as DateData
 
 class CalendarResultFragment(var date: DateData) : Fragment() {
     lateinit var binding: FragmentCalendarResultBinding
@@ -63,10 +63,17 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
         var fatsum: Double = 0.0
 
 
-        val today = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(today)
+        val year = date.year
+        val day = date.day
+        val month = date.month
 
+        Log.i("TAG: year is", year.toString())
+        Log.i("TAG: month is", month.toString())
+        Log.i("TAG: date is", date.toString())
 
+        val simpleDateFormat = "$year-$month-$day"
+
+        Log.i("TAG: date is", simpleDateFormat)
 
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).addValueEventListener(
             object : ValueEventListener {
