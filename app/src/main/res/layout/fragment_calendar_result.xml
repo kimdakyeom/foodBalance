@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/progressbar"
+            android:progressDrawable="@drawable/progressbar_fit"
             android:max="100"
             android:id="@+id/progress_cal" />
     </LinearLayout>
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/progressbar"
+            android:progressDrawable="@drawable/progressbar_fit"
             android:max="100"
             android:id="@+id/progress_car" />
     </LinearLayout>
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/progressbar"
+            android:progressDrawable="@drawable/progressbar_fit"
             android:max="100"
             android:id="@+id/progress_pro" />
     </LinearLayout>
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/progressbar"
+            android:progressDrawable="@drawable/progressbar_fit"
             android:max="100"
             android:id="@+id/progress_fat" />
     </LinearLayout>
