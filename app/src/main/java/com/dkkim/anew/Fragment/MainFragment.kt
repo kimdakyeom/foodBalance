@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.databinding.FragmentMainBinding
@@ -55,6 +56,9 @@ class MainFragment: Fragment() {
         binding.saveBtn.setOnClickListener {
 
             putInfo(food_Name, service_Weight, kcal, carbo, pro, fat)
+
+            Toast.makeText(context, "데이터가 저장되었습니다", Toast.LENGTH_SHORT)
+                .show()
         }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root

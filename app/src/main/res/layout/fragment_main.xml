@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
                 android:inputType="text"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:backgroundTint="@color/black"/>
 
             <ImageView
                 android:id="@+id/search_btn"
