@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".Fragment.MainFragment">
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:src="@drawable/logo2"
+        android:background="@color/main_color"/>
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
