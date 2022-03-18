@@ -5,12 +5,7 @@ package com.dkkim.anew.Model
 class UserAccount(
     _uid: String?,
     _email: String?,
-    _name: String?,
     _pwd1: String?,
-    _sex: Boolean?,
-    _birth: String?,
-    _height: String?,
-    _weight: String?
 ) {
     var uid: String? = _uid
         get() = field
@@ -22,36 +17,10 @@ class UserAccount(
         set(value) {
             field = value
         }
-    var name: String? = _name
-        get() = field
-        set(value) {
-            field = value
-        }
     var pwd1: String? = _pwd1
         get() = field
         set(value) {
             field = value
         }
-    var sex: Boolean? = _sex
-        get() = field
-        set(value) {
-            field = value
-        }
-    var birth: String? = _birth
-        get() = field
-        set(value) {
-            field = value
-        }
-    var height: String? = _height
-        get() = field
-        set(value) {
-            field = value
-        }
-    var weight: String? = _weight
-        get() = field
-        set(value) {
-            field = value
-        }
-
 
 }

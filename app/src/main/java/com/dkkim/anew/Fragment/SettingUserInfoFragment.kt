@@ -21,7 +21,7 @@ class SettingUserInfoFragment : Fragment() {
     lateinit var binding: FragmentSettingUserInfoBinding
 
     // UserAccount에 uid는 firebase.auth에서 가져옴
-    var user = UserAccount(Firebase.auth.currentUser?.uid, null, null, null, null, null, null, null)
+    var user = UserAccount(Firebase.auth.currentUser?.uid, null, null)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

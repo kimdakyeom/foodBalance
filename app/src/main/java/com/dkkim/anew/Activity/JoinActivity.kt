@@ -55,10 +55,6 @@ class JoinActivity : AppCompatActivity() {
             val email: String = binding.joinEmail.text.toString()
             val pwd1: String = binding.joinPw1.text.toString()
             val pwd2: String = binding.joinPw2.text.toString() // 비밀번호확인란
-            val sex: Boolean = binding.joinSexFemale.isChecked()
-            val birth: String = binding.joinBirth.text.toString()
-            val height: String = binding.joinHeight.text.toString()
-            val weight: String = binding.joinWeight.text.toString()
 
 
             if (pwd1 == pwd2) { // 비밀번호 입력란과 비밀번호 확인란이 같을 때
@@ -66,47 +62,31 @@ class JoinActivity : AppCompatActivity() {
                 // firebaseAuth에 email과 password로 user 생성
                 firebaseAuth.createUserWithEmailAndPassword(email, pwd1)
                     .addOnCompleteListener(this@JoinActivity) { task -> // 성공유무 값 확인
-                        if (task.isSuccessful) { // 가입 성공시
+                        if (task.isSuccessful) { // 성공시
                             val user: FirebaseUser? = firebaseAuth.currentUser
                             val email: String? = user?.email
                             val uid: String? = user?.uid
-                            val name = binding.joinName.text.toString().trim()
-                            val sex: Boolean = binding.joinSexFemale.isChecked()
-                            val birth: String = binding.joinBirth.text.toString().trim()
-                            val height: String = binding.joinHeight.text.toString()
-                            val weight: String = binding.joinWeight.text.toString()
 
                             // UserAccount에 값 넣기
-                            val account = UserAccount(
+                            val userAccount = UserAccount(
                                 uid,
                                 email,
-                                name,
-                                pwd1,
-                                sex,
-                                birth,
-                                height,
-                                weight
+                                pwd1
                             ) // UserAccount 모댈 변수
 
-                            val db: FirebaseDatabase =
-                                FirebaseDatabase.getInstance() // FirebaseDatabase 인스턴스 초기화
-                            val reference: DatabaseReference =
-                                db.getReference("UserAccount") // DatabaseReference를 매개체 삼아 읽기/쓰기
-                            reference.child(uid.toString()).child("account")
-                                .setValue(account) // reference에서 하위 값의 uid를 account에 즉시 값 변경
+                            val db: FirebaseDatabase = FirebaseDatabase.getInstance() // FirebaseDatabase 인스턴스 초기화
+                            val reference: DatabaseReference = db.getReference("UserAccount") // DatabaseReference를 매개체 삼아 읽기/쓰기
+                            reference.child(uid.toString()).child("account").setValue(userAccount) // reference에서 하위 값의 uid를 account에 즉시 값 변경
 
-                            // 가입성공시 join액티비티 빠져나와 login액티비티로
-                            val intent = Intent(this@JoinActivity, LoginActivity::class.java)
+                            // 다음 누르면 SecJoinActivity로
+                            val intent = Intent(this@JoinActivity, SecJoinActivity::class.java)
                             startActivity(intent)
-                            finish()
-                            Toast.makeText(this@JoinActivity, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT)
-                                .show()
 
                         } else {
                             if (task.exception is FirebaseAuthUserCollisionException) { // 가입 실패시
                                 Toast.makeText(
                                     this@JoinActivity,
-                                    "아이디가 중복됩니다.", Toast.LENGTH_SHORT
+                                    "이메일이 중복됩니다.", Toast.LENGTH_SHORT
                                 ).show()
                             }
                         }
