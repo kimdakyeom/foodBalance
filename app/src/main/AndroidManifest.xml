@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dkkim.anew">
     <!-- 인터넷 사용 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,6 +22,12 @@
             android:exported="true" />
         <activity
             android:name=".Activity.SecJoinActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.FindPwActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.FindPwResultActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.LoginActivity"

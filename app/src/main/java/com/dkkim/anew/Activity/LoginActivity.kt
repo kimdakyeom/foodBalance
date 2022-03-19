@@ -25,11 +25,17 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // 버튼 클릭 이벤트
         binding.joinBtn.setOnClickListener(this)
         binding.loginBtn.setOnClickListener(this)
+        binding.findPwBtn.setOnClickListener(this)
     }
 
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.find_pw_btn -> {
+                val intent = Intent(this, FindPwActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
             R.id.join_btn -> {
                 // 회원가입 페이지로
                 val intent = Intent(this, JoinActivity::class.java)

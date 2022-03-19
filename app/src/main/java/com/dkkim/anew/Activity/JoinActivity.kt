@@ -100,6 +100,12 @@ class JoinActivity : AppCompatActivity() {
 
         }
 
+        binding.exiEmail.setOnClickListener{
+            val intent = Intent(this@JoinActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         // 뒤로가기 버튼 클릭 이벤트
         binding.joinBackBtn.setOnClickListener {
             // 다시 로그인 화면 띄우기

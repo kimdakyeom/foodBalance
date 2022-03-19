@@ -72,9 +72,10 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/find_pw_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="이메일 / 비밀번호 찾기"
+            android:text="비밀번호를 잊어버리셨습니까?"
             android:gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:textSize="14dp"
