@@ -44,11 +44,11 @@ class MainFragment: Fragment() {
 
         // 음식이름 검색시 액티비티
         binding.searchBtn.setOnClickListener {
-            val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
-            val intent = Intent(requireContext(), FoodSearchActivity()::class.java) // FoodSearchActivity로 화면 전환
-
-            intent.putExtra("foodName", foodName) // foodName에 넣은 값 가지고 intent
-            startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
+//            val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
+//            val intent = Intent(requireContext(), FoodSearchActivity()::class.java) // FoodSearchActivity로 화면 전환
+//
+//            intent.putExtra("foodName", foodName) // foodName에 넣은 값 가지고 intent
+//            startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
         }
 
         firebaseAuth = FirebaseAuth.getInstance()

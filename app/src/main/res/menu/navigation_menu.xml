@@ -3,24 +3,24 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/home"
         android:title="" />
 
     <item
         android:id="@+id/diet"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_pencil_24"
+        android:icon="@drawable/pencil"
         android:title="" />
 
     <item
         android:id="@+id/calendar"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:icon="@drawable/calendar"
         android:title="" />
 
     <item
         android:id="@+id/setting"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:icon="@drawable/user"
         android:title="" />
 </menu>
