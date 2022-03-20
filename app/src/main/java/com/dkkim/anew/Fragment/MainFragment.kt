@@ -53,7 +53,6 @@ class MainFragment: Fragment() {
 //            startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
 
             val intent = Intent(requireContext(), FoodSearchActivity::class.java)
-            intent.putExtra("foodName", binding.textSearch.text)
             startActivity(intent)
         }
 

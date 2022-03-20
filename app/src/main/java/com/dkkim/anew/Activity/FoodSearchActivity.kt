@@ -37,16 +37,8 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
                 LinearLayoutManager(this@FoodSearchActivity, LinearLayoutManager.VERTICAL, false)
             adapter = foodResultAdapter // foodResultAdapter 붙이기
         }
+
         foodResultAdapter.setOnItemClickListener(this) // foodResultAdapter에서 setOnItemClickListener
-
-
-        foodName = intent.getStringExtra("foodName")!!
-        if(foodName!="") {
-            binding.foodEdit.setText(foodName)
-            searchFoodCodeByFoodName(foodName)
-        }
-
-
 
         binding.searchBtn.setOnClickListener { // searchBtn 클릭시
             searchFoodCodeByFoodName(binding.foodEdit.text.toString()) // foodEdit에 입력된 text를 searchFoodCodeByFoodName 함수에 넣고 실행
