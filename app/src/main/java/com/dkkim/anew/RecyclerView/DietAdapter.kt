@@ -36,9 +36,7 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
         holder.food_name.text = dietList.get(position).food_Name
         holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
-        holder.food_car.text = dietList.get(position).carbo.toString()
-        holder.food_pro.text = dietList.get(position).pro.toString()
-        holder.food_fat.text = dietList.get(position).fat.toString()
+        holder.food_time.text = "14:58"
     }
 
     // 리스트 내 아이템 개수
@@ -51,9 +49,7 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
         var food_name = itemview.findViewById<TextView>(R.id.food_name)
         var food_weight = itemview.findViewById<TextView>(R.id.food_weight)
         var food_cal = itemview.findViewById<TextView>(R.id.food_cal)
-        var food_car = itemview.findViewById<TextView>(R.id.food_car)
-        var food_pro = itemview.findViewById<TextView>(R.id.food_pro)
-        var food_fat = itemview.findViewById<TextView>(R.id.food_fat)
+        var food_time = itemview.findViewById<TextView>(R.id.food_time)
 
     }
 

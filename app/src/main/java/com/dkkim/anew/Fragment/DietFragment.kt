@@ -1,7 +1,9 @@
 package com.dkkim.anew.Fragment
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.Model.UserAccount
 import com.dkkim.anew.R
@@ -41,7 +44,6 @@ class DietFragment : Fragment() {
     private val dietList = arrayList<FoodInfo>()
     lateinit var dietRecyclerView: RecyclerView
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +55,29 @@ class DietFragment : Fragment() {
 
         val today = System.currentTimeMillis()
         val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
+        val TodayDate = SimpleDateFormat("yyyy.MM.dd", Locale.KOREAN).format(today)
 
+        binding.date.text = TodayDate
+
+        binding.date.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val dateSetListener = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+                date.text = "${year}.${month+1}.${dayOfMonth}"
+            }
+            DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        binding.left.setOnClickListener {
+            val day = Calendar.getInstance()
+            day.add(Calendar.DATE, -1)
+            val beforeDay = SimpleDateFormat("yyyy.MM.dd", Locale.KOREAN).format(day.time)
+            System.out.println(beforeDay)
+        }
+
+        binding.add.setOnClickListener {
+
+        }
 
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).addValueEventListener(object : ValueEventListener {
 

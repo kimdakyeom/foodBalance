@@ -28,11 +28,9 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityFoodSearchBinding.inflate(layoutInflater) // FoodSearchActivity 바인딩
         setContentView(binding.root)
-
-        foodName = intent.getStringExtra("foodName").toString() // foodName에 넣은 값 가져오기
-        binding.foodEdit.setText(foodName) // foodEdit에 foodName값을 텍스트값으로 세팅
 
         binding.recyclerView.apply { // rectcleview 바인딩
             layoutManager = // FoodSearchActivity에 LinearLayout 수평으로 보여주기
@@ -57,7 +55,7 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
                     item.NUTR_CONT1.toDouble(),
                     item.NUTR_CONT2.toDouble(),
                     item.NUTR_CONT3.toDouble(),
-                    item.NUTR_CONT4.toDouble(),
+                    item.NUTR_CONT4.toDouble()
                 )
                 listItems.add(i) // listItem에 FoodInfo 차례대로 담기
             }
@@ -100,8 +98,6 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         intent.putExtra("fat", data.fat)
         setResult(RESULT_OK, intent) // 호출된 Activity에 결과 돌려주기
         finish() // Activity 종료
-
-        System.out.println(data.food_Name)
 
     }
 

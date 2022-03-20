@@ -8,32 +8,41 @@
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable-v24/navigation_background.xml" value="0.3484375" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/background.xml" value="0.346875" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/button_background.xml" value="0.3296296296296296" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/calendar.xml" value="0.22395833333333334" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/caution.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/circle.xml" value="0.3484375" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/delete.xml" value="0.22395833333333334" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/edit.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/edit_text_background.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/gray_background.xml" value="0.3640625" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/home.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_apple_24.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.33958333333333335" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_white_24.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_pencil_24.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/left_light.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/line_style.xml" value="0.16203703703703703" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/progressbar.xml" value="0.1814814814814815" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/progressbar_exc.xml" value="0.25" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/progressbar_fit.xml" value="0.11296296296296296" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/save_btn.xml" value="0.3484375" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/search_btn.xml" value="0.35846153846153844" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/shadow.xml" value="0.32395833333333335" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/text_background.xml" value="0.16203703703703703" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/user.xml" value="0.22395833333333334" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/drawable/white_background.xml" value="0.346875" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_find_email_pw.xml" value="0.33" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_find_pw.xml" value="0.3078125" />
-        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_find_pw_result.xml" value="0.14361702127659576" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_find_pw_result.xml" value="0.5" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_food_search.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_join.xml" value="0.33" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_login.xml" value="0.31746031746031744" />
-        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_main.xml" value="0.2333614153327717" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_sec_join.xml" value="0.29259259259259257" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/food_result_item.xml" value="0.33229166666666665" />
@@ -48,8 +57,8 @@
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting_avg_nutri.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting_qna.xml" value="0.34459459459459457" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/fragment_setting_user_info.xml" value="0.21195652173913043" />
-        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/item_diet.xml" value="0.25" />
-        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/item_food_result.xml" value="0.1" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/item_diet.xml" value="0.75" />
+        <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/item_food_result.xml" value="0.33" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/layout/item_setting.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/menu/navigation_menu.xml" value="0.15462962962962962" />
         <entry key="..\:/Users/kimda/Desktop/dk/graduation/new/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17777777777777778" />

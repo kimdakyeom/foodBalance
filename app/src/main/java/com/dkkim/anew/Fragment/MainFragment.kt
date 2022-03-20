@@ -3,12 +3,14 @@ package com.dkkim.anew.Fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.dkkim.anew.Activity.FoodSearchActivity
+import com.dkkim.anew.Activity.LoginActivity
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -42,13 +44,16 @@ class MainFragment: Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
 
-        // 음식이름 검색시 액티비티
-        binding.searchBtn.setOnClickListener {
+        // 검색창
+        binding.search.setOnClickListener {
 //            val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
 //            val intent = Intent(requireContext(), FoodSearchActivity()::class.java) // FoodSearchActivity로 화면 전환
 //
 //            intent.putExtra("foodName", foodName) // foodName에 넣은 값 가지고 intent
 //            startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
+
+            val intent = Intent(requireContext(), FoodSearchActivity::class.java)
+            startActivity(intent)
         }
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -87,6 +92,8 @@ class MainFragment: Fragment() {
                 binding.fatG.text = fat.toString()
 
                 super.onActivityResult(requestCode, resultCode, data)
+
+                System.out.println("kcal$kcal")
 
             }
         }
