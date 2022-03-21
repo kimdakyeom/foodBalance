@@ -12,11 +12,11 @@ import android.widget.Toast
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Activity.LoginActivity
 import com.dkkim.anew.Model.FoodInfo
+import com.dkkim.anew.Model.UserAccount
 import com.dkkim.anew.databinding.FragmentMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,6 +27,8 @@ class MainFragment: Fragment() {
     lateinit var binding: FragmentMainBinding // 프래그먼트 바인딩
     private val retrofit = RetrofitClient.create() // 레트로핏 클라이언트 선언
     private lateinit var firebaseAuth: FirebaseAuth
+
+    var user = UserAccount(Firebase.auth.currentUser?.uid, null, null)
 
     private var food_Name: String = ""
     private var service_Weight: Double = 0.0
@@ -44,6 +46,7 @@ class MainFragment: Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
 
+        UserNameInfo(user.uid.toString())
         // 검색창
         binding.search.setOnClickListener {
 //            val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
@@ -117,5 +120,27 @@ class MainFragment: Fragment() {
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
         val reference: DatabaseReference = db.getReference("UserAccount")
         mDatabase.child("UserAccount").child(Firebase.auth.currentUser!!.uid.toString()).child(simpleDateFormat).push().setValue(foodInfo)
+    }
+
+    private fun UserNameInfo(uid: String) {
+        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
+
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                for (snapshotChild in snapshot.children) {
+                    val user = snapshotChild.getValue()
+
+                    var name = snapshotChild.child("name").getValue().toString()
+
+                    binding.name.text = name
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //Log.w("Error", "Failed to read value.", error.toException())
+            }
+        })
     }
 }
