@@ -6,9 +6,11 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dkkim.anew.Fragment.MainFragment
 import com.dkkim.anew.Fragment.RetrofitClient
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.Model.ResultFoodList
+import com.dkkim.anew.R
 import com.dkkim.anew.RecyclerView.FoodResultAdapter
 import com.dkkim.anew.databinding.ActivityFoodSearchBinding
 import retrofit2.Call
@@ -98,6 +100,23 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         intent.putExtra("fat", data.fat)
         setResult(RESULT_OK, intent) // 호출된 Activity에 결과 돌려주기
         finish() // Activity 종료
+
+//        val bundle = Bundle()
+//        bundle.putString("food_Name", data.food_Name)
+//        bundle.putString("service_Weight", data.serving_Weight.toString())
+//        bundle.putString("kcal", data.kcal.toString())
+//        bundle.putString("carbo", data.carbo.toString())
+//        bundle.putString("pro", data.pro.toString())
+//        bundle.putString("fat", data.fat.toString())
+//
+//        val mainFragment = MainFragment()
+//        mainFragment.arguments = bundle
+//
+//        parentFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.main_frame, MainFragment())
+//            .addToBackStack(null)
+//            .commit()
 
     }
 

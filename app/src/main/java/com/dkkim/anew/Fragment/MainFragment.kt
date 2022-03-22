@@ -49,14 +49,9 @@ class MainFragment: Fragment() {
         UserNameInfo(user.uid.toString())
         // 검색창
         binding.search.setOnClickListener {
-//            val foodName = binding.foodEdit.text.toString() // foodEdit에 입력한 string을 foodName에 넣기
-//            val intent = Intent(requireContext(), FoodSearchActivity()::class.java) // FoodSearchActivity로 화면 전환
-//
-//            intent.putExtra("foodName", foodName) // foodName에 넣은 값 가지고 intent
-//            startActivityForResult(intent, 200) // 새 액티비티 열기 + 결과값 전달, requestCode:어떤 activity인지 식별하는 값
 
             val intent = Intent(requireContext(), FoodSearchActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 200)
         }
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -76,7 +71,6 @@ class MainFragment: Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     { // data는 intent로 받음
         super.onActivityResult(requestCode, resultCode, data)
-        val bundle = Bundle()
 
         if (requestCode == 200) { // FoodSearchActivity이면
             if (resultCode == Activity.RESULT_OK) { // 음식 검색결과 액티비티에에서 선택한 음식명
@@ -106,7 +100,7 @@ class MainFragment: Fragment() {
         val mDatabase = FirebaseDatabase.getInstance().reference
 
         val today = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
+        val simpleDateFormat = SimpleDateFormat("yyyy/M/d", Locale.KOREAN).format(today)
 
         val foodInfo = FoodInfo(
             food_Name,
