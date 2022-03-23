@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gray_background"
-    tools:context=".Fragment.DietFragment">
-
-    <TextView
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/main_color"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".Fragment.DietFragment"
+    android:orientation="vertical">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/widget"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/main_color"
+            tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/btn_left"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/left_light"
             app:layout_constraintBottom_toBottomOf="@id/btn_date"
             app:layout_constraintEnd_toStartOf="@+id/btn_date"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="10dp"
             app:tint="@color/gray" />
 
         <TextView
@@ -38,8 +38,8 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:text="yyyy.mm.dd"
-            android:textStyle="bold"
             android:textSize="16dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,75 +48,70 @@
             android:id="@+id/btn_right"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/right_light"
             app:layout_constraintBottom_toBottomOf="@id/btn_date"
             app:layout_constraintStart_toEndOf="@+id/btn_date"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="10dp"
             app:tint="@color/gray" />
 
         <ImageView
             android:id="@+id/btn_delete"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/delete"
             app:layout_constraintBottom_toBottomOf="@id/btn_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="10dp"
             app:tint="@color/gray" />
 
         <ImageView
             android:id="@+id/btn_add"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="@id/btn_date"
             app:layout_constraintRight_toLeftOf="@+id/btn_delete"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="10dp"
             app:tint="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/btn_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/layout1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textSize="50dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="kcal"
+                android:textSize="30dp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/layout1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/widget">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0.0"
-            android:textSize="50dp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="kcal"
-            android:textSize="30dp" />
-
-    </LinearLayout>
-
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dietRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/layout1">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout1" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dietRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_diet" />
-
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

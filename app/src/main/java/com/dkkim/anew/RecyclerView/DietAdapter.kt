@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 import kotlinx.android.synthetic.main.item_diet.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<DietAdapter.DietViewHolder>() {
 
@@ -33,10 +36,13 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
 
     // View에 내용 입력
     override fun onBindViewHolder(holder: DietAdapter.DietViewHolder, position: Int) {
+        val today = System.currentTimeMillis()
+        val simpleTimeFormat = SimpleDateFormat("hh:mm", Locale.KOREAN).format(today)
+
         holder.food_name.text = dietList.get(position).food_Name
         holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
-        holder.food_time.text = "14:58"
+        holder.food_time.text = simpleTimeFormat
     }
 
     // 리스트 내 아이템 개수

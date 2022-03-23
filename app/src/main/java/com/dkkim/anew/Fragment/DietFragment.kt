@@ -36,6 +36,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_diet.*
+import kotlinx.android.synthetic.main.item_diet.*
+import kotlinx.android.synthetic.main.item_diet.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -65,7 +67,9 @@ class DietFragment : Fragment() {
 
         val today = System.currentTimeMillis()
         val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
-        val TodayDate = SimpleDateFormat("yyyy.M.d", Locale.KOREAN).format(today)
+        val TodayDate = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
+
+        val dateText = binding.btnDate.text.toString()
 
         binding.btnDate.text = TodayDate
 
@@ -73,7 +77,7 @@ class DietFragment : Fragment() {
             val cal = Calendar.getInstance()
             val dateSetListener =
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    btn_date.text = "${year}.${month + 1}.${dayOfMonth}"
+                    btn_date.text = "${year}-${month + 1}-${dayOfMonth}"
                 }
             DatePickerDialog(requireContext(),
                 dateSetListener,
@@ -85,7 +89,7 @@ class DietFragment : Fragment() {
         binding.btnLeft.setOnClickListener {
             val day = Calendar.getInstance()
             day.add(Calendar.DATE, -1)
-            val beforeDay = SimpleDateFormat("yyyy.M.d", Locale.KOREAN).format(day.time)
+            val beforeDay = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(day.time)
             System.out.println(beforeDay)
         }
 

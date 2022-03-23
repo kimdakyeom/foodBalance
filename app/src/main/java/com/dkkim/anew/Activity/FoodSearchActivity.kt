@@ -101,22 +101,6 @@ class FoodSearchActivity : AppCompatActivity(), FoodResultAdapter.OnItemClickLis
         setResult(RESULT_OK, intent) // 호출된 Activity에 결과 돌려주기
         finish() // Activity 종료
 
-//        val bundle = Bundle()
-//        bundle.putString("food_Name", data.food_Name)
-//        bundle.putString("service_Weight", data.serving_Weight.toString())
-//        bundle.putString("kcal", data.kcal.toString())
-//        bundle.putString("carbo", data.carbo.toString())
-//        bundle.putString("pro", data.pro.toString())
-//        bundle.putString("fat", data.fat.toString())
-//
-//        val mainFragment = MainFragment()
-//        mainFragment.arguments = bundle
-//
-//        parentFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.main_frame, MainFragment())
-//            .addToBackStack(null)
-//            .commit()
 
     }
 
