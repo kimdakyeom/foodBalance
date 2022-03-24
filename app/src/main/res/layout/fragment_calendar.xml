@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#80EDBB72">
+        android:background="@color/main_color">
 
         <TextView
             android:id="@+id/calendarText"
@@ -18,7 +18,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="Diet Calendar"
+            android:text="다이어트 캘린더"
             tools:ignore="MissingConstraints">
         </TextView>
 

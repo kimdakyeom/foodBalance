@@ -46,6 +46,7 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
 
         progress()
 
+
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
 
@@ -87,7 +88,6 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                     kcalArray.clear()
                     for (snapshotChild in snapshot.children) {
 
-                        val userAccount = snapshotChild.getValue()
                         val kcal = snapshotChild.child("kcal").getValue().toString().toDouble()
                         val carbo = snapshotChild.child("carbo").getValue().toString().toDouble()
                         val pro = snapshotChild.child("pro").getValue().toString().toDouble()
@@ -117,7 +117,6 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                         fatsum += fatArray[i]
                     }
 
-
                     println(kcalArray)
                     println(kcalsum)
                     println(carboArray)
@@ -146,6 +145,11 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                         Log.i("TAG: sex is", sex)
 
                         if (sex == "true") {
+                            binding.calIntake.text = "3468"
+                            binding.carIntake.text = "434"
+                            binding.proIntake.text = "116"
+                            binding.fatIntake.text = "96"
+
                             progress_cal.max = 3468
                             progress_car.max = 434
                             progress_pro.max = 116
@@ -156,20 +160,30 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                             progress_pro.progress = prosum.toInt()
                             progress_fat.progress = fatsum.toInt()
 
+                            binding.dailyCalIntake.text = kcalsum.toInt().toString()
+                            binding.dailyCarIntake.text = carbosum.toInt().toString()
+                            binding.dailyProIntake.text = prosum.toInt().toString()
+                            binding.dailyFatIntake.text = fatsum.toInt().toString()
+
                             if (kcalsum.toInt() >= (1734)) {
-                                progress_cal.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_cal.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                             else if (carbosum.toInt() >= (217)) {
-                                progress_car.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_car.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                             else if (prosum.toInt() >= (58)) {
-                                progress_pro.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_pro.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                             else if (fatsum.toInt() >= (48)) {
-                                progress_fat.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_fat.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
 
                         } else {
+                            binding.calIntake.text = "4332"
+                            binding.carIntake.text = "542"
+                            binding.proIntake.text = "145"
+                            binding.fatIntake.text = "120"
+
                             progress_cal.max = 4332
                             progress_car.max = 542
                             progress_pro.max = 145
@@ -181,28 +195,30 @@ class CalendarResultFragment(var date: DateData) : Fragment() {
                             progress_fat.progress = fatsum.toInt()
 
                             if (kcalsum.toInt() >= (2166)) {
-                                progress_cal.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_cal.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                             else if (carbosum.toInt() >= (271)) {
-                                progress_car.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_car.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                             else if (prosum.toInt() >= (73)) {
-                                progress_pro.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_pro.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                             else if (fatsum.toInt() >= (60)) {
-                                progress_fat.progressTintList = ColorStateList.valueOf(Color.RED)
+                                progress_fat.progressTintList = ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
                         }
 
                     }
-
 
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.w("DietFragment1", "Failed to read value.", error.toException())
                 }
+
             })
+
+
 
     }
 
