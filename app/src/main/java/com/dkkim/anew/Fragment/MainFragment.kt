@@ -88,6 +88,8 @@ class MainFragment: Fragment() {
                 binding.proG.text = pro.toString()
                 binding.fatG.text = fat.toString()
 
+                binding.textSearch.text = food_Name
+
                 super.onActivityResult(requestCode, resultCode, data)
 
                 System.out.println("kcal$kcal")

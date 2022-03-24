@@ -19,8 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_background"
-            android:hint="　음식명을 검색하세요"
-            android:padding="10dp"
+            android:hint="음식명을 검색하세요"
+            android:padding="12dp"
+            android:paddingStart="30dp"
             android:textSize="16dp"
             tools:ignore="MissingConstraints" />
 

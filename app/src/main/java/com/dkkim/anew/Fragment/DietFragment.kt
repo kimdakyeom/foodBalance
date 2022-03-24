@@ -50,22 +50,22 @@ class DietFragment : Fragment() {
     lateinit var mBinding: FragmentDietBinding
     private val binding get() = mBinding!!
     private lateinit var firebaseAuth: FirebaseAuth
-    val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
 
     private val dietList = arrayList<FoodInfo>()
     lateinit var dietRecyclerView: RecyclerView
-
-    val today = System.currentTimeMillis()
-    val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
-    val TodayDate = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         mBinding = FragmentDietBinding.inflate(inflater, container, false)
+        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
 
         val dietAdpater = DietAdapter(dietList)
+
+        val today = System.currentTimeMillis()
+        val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
+        val TodayDate = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
 
         val dateText = binding.btnDate.text.toString()
 
@@ -99,10 +99,6 @@ class DietFragment : Fragment() {
                 .commit()
         }
 
-        binding.dietRecyclerView.btn_delete.setOnClickListener {
-            onDeleteContent()
-        }
-
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat)
             .addValueEventListener(object : ValueEventListener {
 
@@ -130,13 +126,4 @@ class DietFragment : Fragment() {
 
         return binding.root
     }
-
-    private fun onDeleteContent() {
-        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).removeValue().addOnSuccessListener {
-            Toast.makeText(context, "Successfully delete", Toast.LENGTH_SHORT).show()
-
-        }
-
-    }
-
 }
