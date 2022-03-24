@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil.setContentView
@@ -29,10 +30,7 @@ import com.dkkim.anew.RecyclerView.SettingItemAdapter
 import com.dkkim.anew.databinding.FragmentDietBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_diet.*
@@ -52,22 +50,22 @@ class DietFragment : Fragment() {
     lateinit var mBinding: FragmentDietBinding
     private val binding get() = mBinding!!
     private lateinit var firebaseAuth: FirebaseAuth
+    val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
 
     private val dietList = arrayList<FoodInfo>()
     lateinit var dietRecyclerView: RecyclerView
+
+    val today = System.currentTimeMillis()
+    val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
+    val TodayDate = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         mBinding = FragmentDietBinding.inflate(inflater, container, false)
-        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
 
         val dietAdpater = DietAdapter(dietList)
-
-        val today = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
-        val TodayDate = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
 
         val dateText = binding.btnDate.text.toString()
 
@@ -101,6 +99,10 @@ class DietFragment : Fragment() {
                 .commit()
         }
 
+        binding.dietRecyclerView.btn_delete.setOnClickListener {
+            onDeleteContent()
+        }
+
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat)
             .addValueEventListener(object : ValueEventListener {
 
@@ -128,4 +130,13 @@ class DietFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun onDeleteContent() {
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat).removeValue().addOnSuccessListener {
+            Toast.makeText(context, "Successfully delete", Toast.LENGTH_SHORT).show()
+
+        }
+
+    }
+
 }

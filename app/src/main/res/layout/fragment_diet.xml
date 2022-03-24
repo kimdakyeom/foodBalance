@@ -56,24 +56,13 @@
             app:tint="@color/gray" />
 
         <ImageView
-            android:id="@+id/btn_delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/delete"
-            app:layout_constraintBottom_toBottomOf="@id/btn_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/gray" />
-
-        <ImageView
             android:id="@+id/btn_add"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="@id/btn_date"
-            app:layout_constraintRight_toLeftOf="@+id/btn_delete"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/gray" />
 

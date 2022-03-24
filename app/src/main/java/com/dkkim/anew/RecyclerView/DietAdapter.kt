@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
+import com.dkkim.anew.databinding.FragmentDietBinding
 import kotlinx.android.synthetic.main.item_diet.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,13 +23,13 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diet, parent, false)
         return DietViewHolder(view).apply {
             itemView.setOnClickListener {
-                val curPos: Int = adapterPosition
-                val foodInfo: FoodInfo = dietList.get(curPos)
-                Toast.makeText(
-                    parent.context,
-                    "${foodInfo.food_Name} ${foodInfo.serving_Weight} ${foodInfo.kcal} ${foodInfo.carbo} ${foodInfo.pro} ${foodInfo.fat}",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                val curPos: Int = adapterPosition
+//                val foodInfo: FoodInfo = dietList.get(curPos)
+//                Toast.makeText(
+//                    parent.context,
+//                    "${foodInfo.food_Name} ${foodInfo.serving_Weight} ${foodInfo.kcal} ${foodInfo.carbo} ${foodInfo.pro} ${foodInfo.fat}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         }
         Log.d("리사이클러뷰 가 불러짐","ㅇㅇㅇㅇ")
@@ -60,15 +61,3 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
