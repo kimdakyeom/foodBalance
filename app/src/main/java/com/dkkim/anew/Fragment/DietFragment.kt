@@ -11,10 +11,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil.setContentView
@@ -36,6 +33,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.item_diet.*
 import kotlinx.android.synthetic.main.item_diet.view.*
+import sun.bob.mcalendarview.utils.CalendarUtil
+import sun.bob.mcalendarview.utils.CalendarUtil.date
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -54,6 +53,10 @@ class DietFragment : Fragment() {
     private val dietList = arrayList<FoodInfo>()
     lateinit var dietRecyclerView: RecyclerView
 
+    private var  year: Int = 0
+    private var month: Int = 0
+    private var dayOfMonth: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -64,25 +67,47 @@ class DietFragment : Fragment() {
         val dietAdpater = DietAdapter(dietList)
 
         val today = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
         val TodayDate = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
-
-        val dateText = binding.btnDate.text.toString()
 
         binding.btnDate.text = TodayDate
 
         binding.btnDate.setOnClickListener {
             val cal = Calendar.getInstance()
             val dateSetListener =
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    btn_date.text = "${year}-${month + 1}-${dayOfMonth}"
+                DatePickerDialog.OnDateSetListener { view: DatePicker?, year, month, dayOfMonth ->
+                    btn_date.text = "$year-${month + 1}-$dayOfMonth"
+                    val date = "$year-${month + 1}-$dayOfMonth"
+
+                    mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(date)
+                        .addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                dietList.clear()
+                                for (snapshotChild in snapshot.children) {
+                                    val getData = snapshotChild.getValue(FoodInfo::class.java)
+
+                                    dietList.add(getData!!)
+                                }
+                                dietAdpater.notifyDataSetChanged()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.w("DietFragment", "Failed to read value.", error.toException())
+                            }
+                        })
                 }
+
             DatePickerDialog(requireContext(),
                 dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
+
+
         }
+
+        val SimpleDateFormat = "$year-$month-$dayOfMonth"
+
+        Log.d("날짜", "$year-$month-$dayOfMonth")
 
         binding.btnLeft.setOnClickListener {
             val day = Calendar.getInstance()
@@ -99,25 +124,6 @@ class DietFragment : Fragment() {
                 .commit()
         }
 
-        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat)
-            .addValueEventListener(object : ValueEventListener {
-
-                override fun onDataChange(snapshot: DataSnapshot) {
-
-                    dietList.clear()
-                    for (snapshotChild in snapshot.children) {
-                        val getData = snapshotChild.getValue(FoodInfo::class.java)
-
-                        dietList.add(getData!!)
-                    }
-                    dietAdpater.notifyDataSetChanged()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w("DietFragment", "Failed to read value.", error.toException())
-                }
-            })
-
         binding.dietRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.dietRecyclerView.setHasFixedSize(true)
@@ -126,4 +132,5 @@ class DietFragment : Fragment() {
 
         return binding.root
     }
+
 }
