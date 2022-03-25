@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentDietBinding
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.item_diet.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,18 +23,10 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
     // 아이템 레이아웃과 결합
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DietAdapter.DietViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diet, parent, false)
-        return DietViewHolder(view).apply {
-            itemView.setOnClickListener {
-//                val curPos: Int = adapterPosition
-//                val foodInfo: FoodInfo = dietList.get(curPos)
-//                Toast.makeText(
-//                    parent.context,
-//                    "${foodInfo.food_Name} ${foodInfo.serving_Weight} ${foodInfo.kcal} ${foodInfo.carbo} ${foodInfo.pro} ${foodInfo.fat}",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-            }
-        }
-        Log.d("리사이클러뷰 가 불러짐","ㅇㅇㅇㅇ")
+
+
+        return DietViewHolder(view)
+
     }
 
     // View에 내용 입력
@@ -44,6 +38,10 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
         holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
         holder.food_time.text = simpleTimeFormat
+
+        holder.btn_delete.setOnClickListener {
+            deleteitem(position)
+        }
     }
 
     // 리스트 내 아이템 개수
@@ -57,7 +55,14 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
         var food_weight = itemview.findViewById<TextView>(R.id.food_weight)
         var food_cal = itemview.findViewById<TextView>(R.id.food_cal)
         var food_time = itemview.findViewById<TextView>(R.id.food_time)
+        var btn_delete = itemview.findViewById<ImageView>(R.id.btn_delete)
 
+    }
+
+    fun deleteitem(position: Int) {
+        dietList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, dietList.size)
     }
 
 }

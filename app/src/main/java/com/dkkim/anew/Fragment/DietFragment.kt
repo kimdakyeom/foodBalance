@@ -53,10 +53,6 @@ class DietFragment : Fragment() {
     private val dietList = arrayList<FoodInfo>()
     lateinit var dietRecyclerView: RecyclerView
 
-    private var  year: Int = 0
-    private var month: Int = 0
-    private var dayOfMonth: Int = 0
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -74,7 +70,7 @@ class DietFragment : Fragment() {
         binding.btnDate.setOnClickListener {
             val cal = Calendar.getInstance()
             val dateSetListener =
-                DatePickerDialog.OnDateSetListener { view: DatePicker?, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { view: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
                     btn_date.text = "$year-${month + 1}-$dayOfMonth"
                     val date = "$year-${month + 1}-$dayOfMonth"
 
@@ -104,10 +100,6 @@ class DietFragment : Fragment() {
 
 
         }
-
-        val SimpleDateFormat = "$year-$month-$dayOfMonth"
-
-        Log.d("날짜", "$year-$month-$dayOfMonth")
 
         binding.btnLeft.setOnClickListener {
             val day = Calendar.getInstance()
