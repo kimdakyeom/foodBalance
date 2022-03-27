@@ -1,5 +1,6 @@
 package com.dkkim.anew.RecyclerView
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,13 +13,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentDietBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.item_diet.view.*
+import org.w3c.dom.Comment
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<DietAdapter.DietViewHolder>() {
+class DietAdapter(val dietList: ArrayList<FoodInfo>) :
+    RecyclerView.Adapter<DietAdapter.DietViewHolder>() {
 
     // 아이템 레이아웃과 결합
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DietAdapter.DietViewHolder {
@@ -40,7 +48,7 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
         holder.food_time.text = simpleTimeFormat
 
         holder.btn_delete.setOnClickListener {
-            deleteitem(position)
+            deleteItem(position)
         }
     }
 
@@ -59,10 +67,36 @@ class DietAdapter(val dietList : ArrayList<FoodInfo>): RecyclerView.Adapter<Diet
 
     }
 
-    fun deleteitem(position: Int) {
+    fun deleteItem(position: Int) {
+
+        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
+
         dietList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, dietList.size)
+
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString())
+            .child(dietList.get(position).toString()).removeValue()
+
+    }
+
+    fun deleteData(dataSnapshot: DataSnapshot) {
+
+        val mCommentIds = arrayListOf<String>()
+        val mComments = arrayListOf<Comment>()
+
+        val commentKey: String? = dataSnapshot.key
+        val commentIndex: Int = mCommentIds.indexOf(commentKey)
+
+        if (commentIndex > -1) {
+            mCommentIds.removeAt(commentIndex)
+            mComments.removeAt(commentIndex)
+
+            notifyItemRemoved(commentIndex)
+        } else {
+            Log.w(TAG, "onChildRemoved:unknown_child:$commentKey")
+        }
+
     }
 
 }

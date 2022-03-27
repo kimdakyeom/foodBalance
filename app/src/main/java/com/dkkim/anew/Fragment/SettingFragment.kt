@@ -40,13 +40,6 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
         binding = FragmentSettingBinding.inflate(inflater, container, false)
 
         binding.settingRecyclerView.apply {
-            // 아이템사이에 구분선 설정
-            addItemDecoration(
-                DividerItemDecoration(
-                    binding.settingRecyclerView.context,
-                    LinearLayoutManager(context).orientation
-                )
-            )
             // 리니어 레이아웃 형식으로
             layoutManager = LinearLayoutManager(context)
             // 어댑터 설정
@@ -67,7 +60,7 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
                 bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
                 replaceFragment(SettingUserInfoFragment(), bundle)
             }
-            "평균 권장 섭취량" -> {
+            "블루투스 연결" -> {
                 val bundle = Bundle()
                 bundle.putString("uid", "사용자uid")
                 replaceFragment(SettingAvgNutriFragment(), bundle)

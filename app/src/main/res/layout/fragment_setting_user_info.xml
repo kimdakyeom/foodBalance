@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragment.SettingUserInfoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#80EDBB72"
-        >
+        android:background="@color/main_color">
+
         <ImageView
-            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"/>
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -26,129 +28,322 @@
             android:text="개인정보 설정"
             android:textStyle="bold" />
 
-        <TextView
+        <ImageView
             android:id="@+id/user_info_set_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="확인"
-            android:gravity="center"
-            android:paddingEnd="15dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/done"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/gray" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <LinearLayout
-        android:padding="10dp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="2"
-            android:text="이름"/>
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8" />
-    </LinearLayout>
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="2"
-            android:text="이메일"/>
-        <TextView
-            android:id="@+id/user_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8" />
-    </LinearLayout>
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="2"
-            android:text="성별"/>
-        <RadioGroup
-            android:id="@+id/user_sex_radio"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:orientation="horizontal">
-            <RadioButton
-                android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="여"
-                android:checked="true"
-                android:id="@+id/user_sex_female"/>
-            <RadioButton
-                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="이름"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="남"
-                android:id="@+id/user_sex_male"/>
-        </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
-        android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7.5"
+                android:text="김다겸"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="2"
-            android:text="생년월일"/>
-        <EditText
-            android:id="@+id/user_birth_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:inputType="date"/>
-    </LinearLayout>
-    <LinearLayout
-        android:padding="10dp"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="이메일"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7.5"
+                android:text="kdk9912@naver.com"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="2"
-            android:text="신장(cm)"/>
-        <EditText
-            android:id="@+id/user_height_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:inputType="number"/>
-    </LinearLayout>
-    <LinearLayout
-        android:padding="10dp"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="전화번호"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/user_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7.5"
+                android:text="01042113391"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="2"
-            android:text="몸무게(kg)"/>
-        <EditText
-            android:id="@+id/user_weight_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:inputType="number"/>
-    </LinearLayout>
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="성별"
+                android:textSize="16dp" />
+
+            <RadioGroup
+                android:id="@+id/user_sex_radio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7.5"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/user_sex_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="여" />
+
+                <RadioButton
+                    android:id="@+id/user_sex_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="남" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="생년월일"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/user_birth_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7.5"
+                android:layout_marginEnd="20dp"
+                android:inputType="date" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="신장(cm)"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/user_height_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7.5"
+                android:layout_marginEnd="20dp"
+                android:inputType="date" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="몸무게(kg)"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/user_weight_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7.5"
+                android:layout_marginEnd="20dp"
+                android:inputType="date" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>
