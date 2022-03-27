@@ -69,14 +69,14 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
 
     fun deleteItem(position: Int) {
 
-        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
+        // val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
 
         dietList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, dietList.size)
 
-        mDatabase.child(Firebase.auth.currentUser?.uid.toString())
-            .child(dietList.get(position).toString()).removeValue()
+//        mDatabase.child(Firebase.auth.currentUser?.uid.toString())
+//            .child(dietList.get(position).toString()).removeValue()
 
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +8,13 @@
     tools:context=".Fragment.CalendarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/calendarText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/main_color">
+        android:background="@color/main_color"
+        tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/calendarText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
@@ -24,12 +25,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <sun.bob.mcalendarview.MCalendarView
+    <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </sun.bob.mcalendarview.MCalendarView>
+        app:layout_constraintTop_toBottomOf="@+id/calendarText"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

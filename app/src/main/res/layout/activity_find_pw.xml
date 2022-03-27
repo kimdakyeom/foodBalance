@@ -9,12 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/join"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@color/main_color"
             android:gravity="center"
             android:padding="10dp"
@@ -32,7 +32,8 @@
             android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

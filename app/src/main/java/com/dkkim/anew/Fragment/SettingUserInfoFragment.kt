@@ -44,19 +44,27 @@ class SettingUserInfoFragment : Fragment() {
         binding.userInfoSetBtn.setOnClickListener {
             // 유저 정보에 저장 - 파이어베이스에
             var name: String = binding.userName.text.toString()
+            var phone: String = binding.userPhone.text.toString()
             var sex: Boolean = binding.userSexFemale.isChecked // T: 여자, F:남자
             var birth: String = binding.userBirthEdit.text.toString()
             var height: String = binding.userHeightEdit.text.toString()
             var weight: String = binding.userWeightEdit.text.toString()
-            updateUserInfo(name, sex, birth, height, weight)
+            updateUserInfo(name, phone, sex, birth, height, weight)
 
         }
+
+        // 뒤로가기 버튼
+        binding.backBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
     }
 
     private fun updateUserInfo(
         name: String,
+        phone: String,
         sex: Boolean,
         birth: String,
         height: String,
@@ -66,6 +74,7 @@ class SettingUserInfoFragment : Fragment() {
 
         val updateUserAccount = mapOf<String, Any>(
             "name" to name,
+            "phone" to phone,
             "sex" to sex,
             "birth" to birth,
             "height" to height,
@@ -90,7 +99,7 @@ class SettingUserInfoFragment : Fragment() {
                     System.out.println(user)
 
                     val birth = snapshotChild.child("birth").getValue().toString()
-                    val email = snapshotChild.child("email").getValue().toString()
+                    val phone = snapshotChild.child("phone").getValue().toString()
                     val height = snapshotChild.child("height").getValue().toString()
                     var name = snapshotChild.child("name").getValue().toString()
                     val pw1 = snapshotChild.child("pw1").getValue().toString()
@@ -102,7 +111,7 @@ class SettingUserInfoFragment : Fragment() {
                     System.out.println(name)
 
                     binding.userName.text = name
-                    binding.userEmail.text = email
+                    binding.userPhone.text = phone
                     if (sex == "true") {
                         binding.userSexFemale.isChecked = true
                         binding.userSexMale.isChecked = false
