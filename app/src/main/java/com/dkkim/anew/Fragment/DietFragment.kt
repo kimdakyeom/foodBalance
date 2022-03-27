@@ -69,6 +69,10 @@ class DietFragment : Fragment() {
 
         binding.btnDate.setOnClickListener {
             val cal = Calendar.getInstance()
+
+            val kcalArray = arrayList<Double>()
+            var kcalsum: Double = 0.0
+
             val dateSetListener =
                 DatePickerDialog.OnDateSetListener { view: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
                     btn_date.text = "$year-${month + 1}-$dayOfMonth"
@@ -77,13 +81,27 @@ class DietFragment : Fragment() {
                     mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(date)
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
+
                                 dietList.clear()
+                                kcalArray.clear()
+
                                 for (snapshotChild in snapshot.children) {
                                     val getData = snapshotChild.getValue(FoodInfo::class.java)
+                                    val kcal = snapshotChild.child("kcal").getValue().toString().toDouble()
 
                                     dietList.add(getData!!)
+
+                                    kcalArray.add(kcal)
+
                                 }
+
+                                for (i in kcalArray.indices) {
+                                    kcalsum += kcalArray[i]
+                                }
+
                                 dietAdpater.notifyDataSetChanged()
+
+                                binding.dietKcal.text = kcalsum.toInt().toString()
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -97,7 +115,6 @@ class DietFragment : Fragment() {
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
-
 
         }
 
