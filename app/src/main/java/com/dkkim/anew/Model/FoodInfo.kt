@@ -9,6 +9,7 @@ data class FoodInfo(
     val _carbo: Double? = 0.0, // 탄수화물
     val _pro: Double? = 0.0, // 단백질
     val _fat: Double? = 0.0, // 지방
+    val _food_Time: String? = "" // 저장 시간
 )
 {
     var food_Name: String? = _food_Name
@@ -38,6 +39,11 @@ data class FoodInfo(
             field = value
         }
     var fat: Double? = _fat
+        get() = field
+        set(value) {
+            field = value
+        }
+    var food_Time: String? = _food_Time
         get() = field
         set(value) {
             field = value

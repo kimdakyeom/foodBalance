@@ -2,6 +2,7 @@ package com.dkkim.anew.Fragment
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Activity.LoginActivity
 import com.dkkim.anew.Model.FoodInfo
@@ -19,6 +21,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -36,11 +40,13 @@ class MainFragment: Fragment() {
     private var carbo: Double = 0.0
     private var pro: Double = 0.0
     private var fat: Double = 0.0
+    private var food_Time: String = ""
 
     // 공공데이터 open api 디코딩키 선언
     private val foodNutriDecodingKey =
         "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView( // onCreate 후에 화면을 구성할 때 호출
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? // Layout 가져오기
     ): View? {
@@ -58,7 +64,7 @@ class MainFragment: Fragment() {
 
         binding.saveBtn.setOnClickListener {
 
-            putInfo(food_Name, service_Weight, kcal, carbo, pro, fat)
+            putInfo(food_Name, service_Weight, kcal, carbo, pro, fat, food_Time)
 
             Toast.makeText(context, "데이터가 저장되었습니다", Toast.LENGTH_SHORT)
                 .show()
@@ -98,11 +104,14 @@ class MainFragment: Fragment() {
         }
     }
 
-    private fun putInfo(food_Name: String, service_Weight: Double, kcal: Double, carbo: Double, pro: Double, fat: Double){
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun putInfo(food_Name: String, service_Weight: Double, kcal: Double, carbo: Double, pro: Double, fat: Double, food_Time: String){
         val mDatabase = FirebaseDatabase.getInstance().reference
 
         val today = System.currentTimeMillis()
         val simpleDateFormat = SimpleDateFormat("yyyy-M-d", Locale.KOREAN).format(today)
+
+        val food_Time = SimpleDateFormat("HH:mm", Locale.KOREAN).format(today)
 
         val foodInfo = FoodInfo(
             food_Name,
@@ -110,7 +119,8 @@ class MainFragment: Fragment() {
             kcal,
             carbo,
             pro,
-            fat
+            fat,
+            food_Time
         )
 
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()

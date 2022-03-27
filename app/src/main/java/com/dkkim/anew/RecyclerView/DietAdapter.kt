@@ -45,7 +45,7 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
         holder.food_name.text = dietList.get(position).food_Name
         holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
-        holder.food_time.text = simpleTimeFormat
+        holder.food_time.text = dietList.get(position).food_Time.toString()
 
         holder.btn_delete.setOnClickListener {
             deleteItem(position)
