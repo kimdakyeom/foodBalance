@@ -82,7 +82,7 @@ class SettingUserInfoFragment : Fragment() {
         )
 
         // 하위 노드를 모두 업데이트
-        mDatabase.child("UserAccount").child(user.uid.toString()).child("account").updateChildren(updateUserAccount)
+        mDatabase.child("UserAccount").child(user.uid.toString()).child("info").updateChildren(updateUserAccount)
     }
 
     private fun initUserInfo(uid: String) {

@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dkkim.anew.Activity.LoginActivity
-import com.dkkim.anew.Activity.MainActivity
 import com.dkkim.anew.Model.SettingInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.RecyclerView.SettingItemAdapter
@@ -25,6 +23,7 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
     // 설정에 들어갈 메뉴들
     private val settingList = arrayListOf(
         SettingInfo("개인정보 설정"),
+        SettingInfo("비밀번호 재설정"),
         SettingInfo("평균 권장 섭취량"),
         SettingInfo("Q & A"),
         SettingInfo("로그아웃")
@@ -60,10 +59,15 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
                 bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
                 replaceFragment(SettingUserInfoFragment(), bundle)
             }
+            "비밀번호 재설정" -> {
+                val bundle = Bundle()
+                bundle.putString("uid", "사용자uid")
+                replaceFragment(PasswordFragment(), bundle)
+            }
             "블루투스 연결" -> {
                 val bundle = Bundle()
                 bundle.putString("uid", "사용자uid")
-                replaceFragment(SettingAvgNutriFragment(), bundle)
+                replaceFragment(BluetoothFragment(), bundle)
             }
             "Q & A" -> {
                 val bundle = Bundle()
