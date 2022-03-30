@@ -1,22 +1,16 @@
 package com.dkkim.anew.RecyclerView
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
-import com.dkkim.anew.databinding.FragmentDietBinding
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.item_diet.view.*
@@ -27,6 +21,16 @@ import kotlin.collections.ArrayList
 
 class DietAdapter(val dietList: ArrayList<FoodInfo>) :
     RecyclerView.Adapter<DietAdapter.DietViewHolder>() {
+
+    interface OnItemClickListener { // RecyclerView 외부 클릭이벤트
+        fun onItemClick(view: View, data: FoodInfo, position: Int)
+    }
+
+    private var listener: OnItemClickListener? = null // 리스너 객체 참조를 저장하는 변수
+    // OnItemClickListener 객체 참조를 어댑터에 전달하는 메서드
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
 
     // 아이템 레이아웃과 결합
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DietAdapter.DietViewHolder {
@@ -46,10 +50,6 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
         holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
         holder.food_time.text = dietList.get(position).food_Time.toString()
-
-        holder.btn_delete.setOnClickListener {
-            deleteItem(position)
-        }
     }
 
     // 리스트 내 아이템 개수
@@ -64,38 +64,6 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
         var food_cal = itemview.findViewById<TextView>(R.id.food_cal)
         var food_time = itemview.findViewById<TextView>(R.id.food_time)
         var btn_delete = itemview.findViewById<ImageView>(R.id.btn_delete)
-
-    }
-
-    fun deleteItem(position: Int) {
-
-        // val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
-
-        dietList.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, dietList.size)
-
-//        mDatabase.child(Firebase.auth.currentUser?.uid.toString())
-//            .child(dietList.get(position).toString()).removeValue()
-
-    }
-
-    fun deleteData(dataSnapshot: DataSnapshot) {
-
-        val mCommentIds = arrayListOf<String>()
-        val mComments = arrayListOf<Comment>()
-
-        val commentKey: String? = dataSnapshot.key
-        val commentIndex: Int = mCommentIds.indexOf(commentKey)
-
-        if (commentIndex > -1) {
-            mCommentIds.removeAt(commentIndex)
-            mComments.removeAt(commentIndex)
-
-            notifyItemRemoved(commentIndex)
-        } else {
-            Log.w(TAG, "onChildRemoved:unknown_child:$commentKey")
-        }
 
     }
 

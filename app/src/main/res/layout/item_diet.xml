@@ -100,8 +100,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="30dp"
             android:gravity="center"
-            android:src="@drawable/delete"
-            app:tint="@color/black" />
+            android:src="@drawable/kebab_menu"
+            app:tint="@color/gray" />
 
     </LinearLayout>
 
