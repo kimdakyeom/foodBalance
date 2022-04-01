@@ -1,7 +1,6 @@
 package com.dkkim.anew.RecyclerView
 
-import android.content.ContentValues.TAG
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.item_diet.view.*
-import org.w3c.dom.Comment
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,9 +30,7 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DietAdapter.DietViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diet, parent, false)
 
-
         return DietViewHolder(view)
-
     }
 
     // View에 내용 입력
@@ -50,6 +42,7 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
         holder.food_weight.text = dietList.get(position).serving_Weight.toString()
         holder.food_cal.text = dietList.get(position).kcal.toString()
         holder.food_time.text = dietList.get(position).food_Time.toString()
+
     }
 
     // 리스트 내 아이템 개수

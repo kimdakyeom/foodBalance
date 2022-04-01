@@ -3,7 +3,6 @@ package com.dkkim.anew.Fragment
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_diet.*
-import sun.bob.mcalendarview.utils.CalendarUtil
 import sun.bob.mcalendarview.utils.CalendarUtil.date
 import java.text.SimpleDateFormat
 import java.util.*
