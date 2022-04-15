@@ -4,6 +4,12 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.dkkim.anew.databinding.ActivitySplashBinding
+import android.app.Activity
+
+import android.content.SharedPreferences
+import android.widget.Toast
+import com.dkkim.anew.Util.MySharedPreferences
+
 
 class SplashActivity : AppCompatActivity() {
     lateinit var binding: ActivitySplashBinding
@@ -15,11 +21,32 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        handler.postDelayed({ // 몇 초 뒤에 실행
-            val intent = Intent(this, LoginActivity::class.java)
+
+        if (MySharedPreferences.getEmail(this).isBlank()) {
+            val login = Intent(this, LoginActivity::class.java)
+            loadSplashScreen(login)
+
+        } else { // sharedPreference 안에 토큰 저장되어 있을 때 -> Main
+
+            Toast.makeText(this, "자동 로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+            val loginActivity = LoginActivity()
+            loginActivity.login(
+                MySharedPreferences.getEmail(this),
+                MySharedPreferences.getPwd(this),
+                this
+            )
+
+            val main = Intent(this, MainActivity::class.java)
+            loadSplashScreen(main)
+
+        }
+
+
+    }
+    private fun loadSplashScreen(intent: Intent) {
+        Handler().postDelayed({
             startActivity(intent)
             finish()
-        }, 2000) // 2초 후 로그인 화면으로
-
+        }, 2000)
     }
 }

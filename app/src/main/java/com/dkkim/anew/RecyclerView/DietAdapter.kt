@@ -13,16 +13,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DietAdapter(val dietList: ArrayList<FoodInfo>) :
+class DietAdapter(private val dietList: ArrayList<FoodInfo>) :
     RecyclerView.Adapter<DietAdapter.DietViewHolder>() {
 
     interface OnItemClickListener { // RecyclerView 외부 클릭이벤트
         fun onItemClick(view: View, data: FoodInfo, position: Int)
     }
 
-    private var listener: OnItemClickListener? = null // 리스너 객체 참조를 저장하는 변수
+    private var listener: DietAdapter.OnItemClickListener? = null // 리스너 객체 참조를 저장하는 변수
     // OnItemClickListener 객체 참조를 어댑터에 전달하는 메서드
-    fun setOnItemClickListener(listener: OnItemClickListener) {
+    fun setOnItemClickListener(listener: DietAdapter.OnItemClickListener) {
         this.listener = listener
     }
 
@@ -56,7 +56,6 @@ class DietAdapter(val dietList: ArrayList<FoodInfo>) :
         var food_weight = itemview.findViewById<TextView>(R.id.food_weight)
         var food_cal = itemview.findViewById<TextView>(R.id.food_cal)
         var food_time = itemview.findViewById<TextView>(R.id.food_time)
-        var btn_delete = itemview.findViewById<ImageView>(R.id.btn_delete)
 
     }
 

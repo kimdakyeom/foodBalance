@@ -71,6 +71,13 @@
                 android:layout_marginTop="20dp" />
         </LinearLayout>
 
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자동로그인"
+            android:id="@+id/auto_login"
+            android:checked="true"/>
+
         <TextView
             android:id="@+id/find_pw_btn"
             android:layout_width="match_parent"

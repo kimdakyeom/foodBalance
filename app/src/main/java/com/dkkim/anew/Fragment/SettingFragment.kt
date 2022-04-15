@@ -12,6 +12,7 @@ import com.dkkim.anew.Activity.LoginActivity
 import com.dkkim.anew.Model.SettingInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.RecyclerView.SettingItemAdapter
+import com.dkkim.anew.Util.MySharedPreferences
 import com.dkkim.anew.databinding.FragmentSettingBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -23,6 +24,7 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
     // 설정에 들어갈 메뉴들
     private val settingList = arrayListOf(
         SettingInfo("개인정보 설정"),
+        SettingInfo("푸시알람 설정"),
         SettingInfo("비밀번호 재설정"),
         SettingInfo("평균 권장 섭취량"),
         SettingInfo("Q & A"),
@@ -59,6 +61,11 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
                 bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
                 replaceFragment(SettingUserInfoFragment(), bundle)
             }
+            "푸시알람 설정" -> {
+                val bundle = Bundle()
+                bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
+                replaceFragment(SettingPushFragment(), bundle)
+            }
             "비밀번호 재설정" -> {
                 val bundle = Bundle()
                 bundle.putString("uid", "사용자uid")
@@ -86,6 +93,9 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
         startActivity(intent)
         Toast.makeText(getActivity(), "로그아웃", Toast.LENGTH_SHORT)
             .show()
+
+        MySharedPreferences.clearUser(requireContext())
+
     }
 
     // 프래그먼트 변경 함수 (스택에 쌓이는 -> 뒤로가기 시 전 프래그먼트 뜸)

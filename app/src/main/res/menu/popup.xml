@@ -4,4 +4,8 @@
         android:id="@+id/menu_delete"
         android:title="삭제" />
 
+    <item
+        android:id="@+id/menu_cancel"
+        android:title="취소" />
+
 </menu>

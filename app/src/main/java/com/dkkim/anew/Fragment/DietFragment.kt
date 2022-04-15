@@ -3,13 +3,13 @@ package com.dkkim.anew.Fragment
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.databinding.FragmentDietBinding
@@ -17,31 +17,22 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_diet.*
-import sun.bob.mcalendarview.utils.CalendarUtil.date
 import java.text.SimpleDateFormat
 import java.util.*
-import com.dkkim.anew.RecyclerView.DietAdapter as DietAdapter
+import com.dkkim.anew.RecyclerView.DietAdapter
 import kotlin.collections.arrayListOf as arrayList
 
 
-class DietFragment : Fragment() {
+class DietFragment : Fragment(), DietAdapter.OnItemClickListener {
     lateinit var mBinding: FragmentDietBinding
     private val binding get() = mBinding!!
-    private lateinit var firebaseAuth: FirebaseAuth
 
-    private val dietList = arrayList<FoodInfo>()
-    lateinit var dietRecyclerView: RecyclerView
 
-    private var selectedFood: FoodInfo? = null
-    private var selectedFoodIndex = -1
+    private var dietList = arrayList<FoodInfo>()
+    var dietListDate = ""
 
-    val dietAdpater = DietAdapter(dietList)
-    var date: String? = ""
+    private val dietAdapter = DietAdapter(dietList)
 
-    var myear: Int = 0
-    var mmonth: Int = 0
-    var mday: Int = 0
 
 
     override fun onCreateView(
@@ -58,7 +49,18 @@ class DietFragment : Fragment() {
         var kcalsum: Double = 0.0
 
 
+
         binding.btnDate.text = TodayDate
+
+
+        binding.dietRecyclerView.apply{
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = dietAdapter
+        }
+        dietAdapter.setOnItemClickListener(this)
+
+
 
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(TodayDate)
             .addValueEventListener(object : ValueEventListener {
@@ -81,7 +83,7 @@ class DietFragment : Fragment() {
                         kcalsum += kcalArray[i]
                     }
 
-                    dietAdpater.notifyDataSetChanged()
+                    dietAdapter.notifyDataSetChanged()
 
                     binding.dietKcal.text = kcalsum.toInt().toString()
                 }
@@ -102,14 +104,10 @@ class DietFragment : Fragment() {
             val dateSetListener =
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     binding.btnDate.text = "$year-${month + 1}-$dayOfMonth"
-                    val date = "$year-${month + 1}-$dayOfMonth"
+                    dietListDate = "$year-${month + 1}-$dayOfMonth"
+                    Log.d("dietListDate", dietListDate)
 
-                    myear = year
-                    mmonth = month + 1
-                    mday = dayOfMonth
-
-
-                    mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(date)
+                    mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(dietListDate)
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -131,7 +129,7 @@ class DietFragment : Fragment() {
                                     kcalsum += kcalArray[i]
                                 }
 
-                                dietAdpater.notifyDataSetChanged()
+                                dietAdapter.notifyDataSetChanged()
 
                                 binding.dietKcal.text = kcalsum.toInt().toString()
                             }
@@ -152,9 +150,6 @@ class DietFragment : Fragment() {
         }
 
 
-        Toast.makeText(context, "$myear", Toast.LENGTH_SHORT)
-            .show()
-
         binding.btnAdd.setOnClickListener {
             parentFragmentManager
                 .beginTransaction()
@@ -163,43 +158,41 @@ class DietFragment : Fragment() {
                 .commit()
         }
 
-        binding.dietRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.dietRecyclerView.setHasFixedSize(true)
-        binding.dietRecyclerView.adapter = dietAdpater
+
 
 
         return binding.root
     }
 
 
-//    fun deleteFood() {
-//        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
-//        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(date)
-//            .removeValue()
-//
-//    }
-//
-//
-//    fun onItemClick(view: View, data: FoodInfo, position: Int) {
-//        selectedFood = data
-//        selectedFoodIndex = dietList.indexOf(data)
-//
-//        PopupMenu(view.context, view, Gravity.END).apply {
-//            menuInflater.inflate(R.menu.popup, menu)
-//            setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-//                when (it.itemId) {
-//                    R.id.menu_delete -> {
-//                        deleteFood()
-//                        Log.d("popup", "아이템 삭제")
-//                        false
-//                    }
-//                    else -> {
-//                        Log.d("popup", "오류")
-//                        false
-//                    }
-//                }
-//            })
-//        }
-//    }
+    private fun deleteFood(date: String) {
+        val mDatabase = FirebaseDatabase.getInstance().getReference("UserAccount")
+        mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(date)
+            .removeValue()
+    }
+
+    override fun onItemClick(view: View, data: FoodInfo, position: Int) {
+        Log.d("itemClicked","itemClicked")
+        PopupMenu(view.context, view, Gravity.END).apply {
+            menuInflater.inflate(R.menu.popup, menu)
+            setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_delete -> {
+//                        deleteFood(binding.btnDate.text as String)
+                        Log.d("popup", "아이템 삭제")
+                        false
+                    }
+                    R.id.menu_cancel -> {
+                        false
+                    }
+                    else -> {
+                        Log.d("popup", "오류")
+                        false
+                    }
+                }
+            })
+            show()
+        }
+
+    }
 }
