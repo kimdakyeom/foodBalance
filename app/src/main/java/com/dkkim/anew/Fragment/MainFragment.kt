@@ -16,6 +16,8 @@ import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Activity.LoginActivity
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.Model.UserAccount
+import com.dkkim.anew.R
+import com.dkkim.anew.Util.MySharedPreferences
 import com.dkkim.anew.databinding.FragmentMainBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -47,6 +49,8 @@ class MainFragment: Fragment() {
     private var fat: Double = 0.0
     private var food_Time: String = ""
 
+    private var dietMode = MySharedPreferences.getDietMode(requireContext())
+
     // 공공데이터 open api 디코딩키 선언
     private val foodNutriDecodingKey =
         "j/xkShPJBtxFbK+ahZ+zy8yx8hTGU36HJbFQ9ZK0/JNRG6yhX41qMmiyl73Z1VSpfFZUiK3DBt31s9qnfHqLEw=="
@@ -63,11 +67,6 @@ class MainFragment: Fragment() {
                 return@OnCompleteListener
             }
 
-            val token = task.result
-
-            val msg = token
-            Log.d(TAG, msg)
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         })
 
         UserNameInfo(user.uid.toString())
@@ -86,6 +85,25 @@ class MainFragment: Fragment() {
 
             Toast.makeText(context, "데이터가 저장되었습니다", Toast.LENGTH_SHORT)
                 .show()
+        }
+
+        when(dietMode){
+            "minus" -> {
+                binding.dietModeText.text = "감량모드"
+            }
+            "basic" -> {
+                binding.dietModeText.text = "유지모드"
+            }
+            "add" -> {
+                binding.dietModeText.text = "증량모드"
+            }
+        }
+
+        binding.dietModeText.setOnClickListener {
+            parentFragmentManager.beginTransaction() // 프래그먼트 트랜잭션 시작
+                .addToBackStack(null) // 스택에 프래그먼트 쌓기
+                .replace(R.id.main_frame, SettingDietModeFragment()) // (프래그먼트에 들어갈 프레임 레이아웃 ID, 전환될 프래그먼트)
+                .commit() // 실행
         }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root

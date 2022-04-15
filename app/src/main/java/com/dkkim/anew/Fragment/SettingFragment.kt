@@ -66,6 +66,11 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
                 bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
                 replaceFragment(SettingPushFragment(), bundle)
             }
+            "식단관리 모드 설정" -> {
+                val bundle = Bundle()
+                bundle.putString("uid", "사용자uid") // 번들에 key, value 넣고 전달
+                replaceFragment(SettingDietModeFragment(), bundle)
+            }
             "비밀번호 재설정" -> {
                 val bundle = Bundle()
                 bundle.putString("uid", "사용자uid")
