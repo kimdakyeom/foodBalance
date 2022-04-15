@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.dkkim.anew.Util.FCMRetrofitInstance
 import com.dkkim.anew.Util.Model.NotificationData
 import com.dkkim.anew.Util.Model.PushNotification
 import com.dkkim.anew.Util.MySharedPreferences
@@ -65,7 +64,6 @@ class CalendarResultFragment() : Fragment() {
         Log.i("TAG: date is", simpleDateFormat)
 
 
-        sendPushByToken(simpleDateFormat)
 
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat)
             .addValueEventListener(
@@ -256,27 +254,6 @@ class CalendarResultFragment() : Fragment() {
         return binding.root
     }
 
-
-    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val response = FCMRetrofitInstance.api.postNotification(notification)
-            if(response.isSuccessful) {
-                Log.d(TAG, "Response: ${Gson().toJson(response)}")
-            } else {
-                Log.e(TAG, response.errorBody().toString())
-            }
-        } catch(e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-    }
-
-    fun sendPushByToken(msg: String) {
-        val PushNotification = PushNotification(
-            NotificationData("FoodBalance", msg),
-            MySharedPreferences.getFcmToken(requireContext())
-        )
-        sendNotification(PushNotification)
-    }
 
 
 
