@@ -173,24 +173,20 @@ class MainFragment: Fragment() {
                         if (bytesAvailable > 0) { //데이터가 수신된 경우
                             val packetBytes = ByteArray(bytesAvailable)
                             MainApplication.mmInStream?.read(packetBytes)
-                            /**
-                             * 한 버퍼 처리
-                             */
+                            // 한 버퍼 처리
                             // Byte -> String
-                            val s = String(packetBytes,Charsets.UTF_8)
+                            val scale = String(packetBytes,Charsets.UTF_8)
                             //수신 String 출력
-//                            Toast.makeText(context, "수신: $s", Toast.LENGTH_SHORT).show()
+                            // Toast.makeText(context, "수신: $scale", Toast.LENGTH_SHORT).show()
                             Thread.sleep(1000)
                             activity?.runOnUiThread {
-                                binding.foodWeight.text = s
+                                binding.foodWeight.text = scale
                             }
-//                            /**
-//                             * 한 바이트씩 처리
-//                             */
-//                            for (i in 0 until bytesAvailable) {
-//                                val b = packetBytes[i]
-//                                Log.d("inputData", String.format("%02x", b))
-//                            }
+                             /**한 바이트씩 처리
+                           for (i in 0 until bytesAvailable) {
+                                val b = packetBytes[i]
+                                Log.d("inputData", String.format("%02x", b))
+                           } */
                         }
                     }
                 } catch (e: UnsupportedEncodingException) {
