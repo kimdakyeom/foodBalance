@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_calendar_result.*
+import kotlin.math.roundToInt
 
 class CalendarResultFragment() : Fragment() {
     lateinit var binding: FragmentCalendarResultBinding
@@ -123,36 +124,36 @@ class CalendarResultFragment() : Fragment() {
 
                         Log.i("TAG: sex is", sex)
 
-                        var max_cal_f = 3468
-                        var max_car_f = 434
-                        var max_pro_f = 116
-                        var max_fat_f = 96
+                        var max_cal_f = 3468.0
+                        var max_car_f = 434.0
+                        var max_pro_f = 116.0
+                        var max_fat_f = 96.0
 
-                        var max_cal_m = 4332
-                        var max_car_m = 542
-                        var max_pro_m = 145
-                        var max_fat_m = 120
+                        var max_cal_m = 4332.0
+                        var max_car_m = 542.0
+                        var max_pro_m = 145.0
+                        var max_fat_m = 120.0
 
                         when(dietMode) {
                             "minus" -> {
-                                max_cal_f *= 0.8 as Int
-                                max_car_f *= 0.8 as Int
-                                max_pro_f *= 0.8 as Int
-                                max_fat_f *= 0.8 as Int
-                                max_cal_m *= 0.8 as Int
-                                max_car_m *= 0.8 as Int
-                                max_pro_m *= 0.8 as Int
-                                max_fat_m *= 0.8 as Int
+                                max_cal_f *= 0.8
+                                max_car_f *= 0.8
+                                max_pro_f *= 0.8
+                                max_fat_f *= 0.8
+                                max_cal_m *= 0.8
+                                max_car_m *= 0.8
+                                max_pro_m *= 0.8
+                                max_fat_m *= 0.8
                             }
                             "add" -> {
-                                max_cal_f *= 1.2 as Int
-                                max_car_f *= 1.2 as Int
-                                max_pro_f *= 1.2 as Int
-                                max_fat_f *= 1.2 as Int
-                                max_cal_m *= 0.8 as Int
-                                max_car_m *= 0.8 as Int
-                                max_pro_m *= 0.8 as Int
-                                max_fat_m *= 0.8 as Int
+                                max_cal_f *= 1.2
+                                max_car_f *= 1.2
+                                max_pro_f *= 1.2
+                                max_fat_f *= 1.2
+                                max_cal_m *= 0.8
+                                max_car_m *= 0.8
+                                max_pro_m *= 0.8
+                                max_fat_m *= 0.8
                             }
                         }
 
@@ -164,10 +165,10 @@ class CalendarResultFragment() : Fragment() {
 
 
 
-                            progress_cal.max = max_cal_f
-                            progress_car.max = max_car_f
-                            progress_pro.max = max_pro_f
-                            progress_fat.max = max_fat_f
+                            progress_cal.max = max_cal_f.roundToInt()
+                            progress_car.max = max_car_f.roundToInt()
+                            progress_pro.max = max_pro_f.roundToInt()
+                            progress_fat.max = max_fat_f.roundToInt()
 
                             progress_cal.progress = kcalsum.toInt()
                             progress_car.progress = carbosum.toInt()
@@ -199,10 +200,10 @@ class CalendarResultFragment() : Fragment() {
                             binding.proIntake.text = max_pro_m.toString()
                             binding.fatIntake.text = max_fat_m.toString()
 
-                            progress_cal.max = max_cal_m
-                            progress_car.max = max_car_m
-                            progress_pro.max = max_pro_m
-                            progress_fat.max = max_fat_m
+                            progress_cal.max = max_cal_m.roundToInt()
+                            progress_car.max = max_car_m.roundToInt()
+                            progress_pro.max = max_pro_m.roundToInt()
+                            progress_fat.max = max_fat_m.roundToInt()
 
                             progress_cal.progress = kcalsum.toInt()
                             progress_car.progress = carbosum.toInt()
