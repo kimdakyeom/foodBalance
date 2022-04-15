@@ -158,10 +158,10 @@ class CalendarResultFragment() : Fragment() {
                         }
 
                         if (sex == "true") {
-                            binding.calIntake.text = max_cal_f.toString()
-                            binding.carIntake.text = max_car_f.toString()
-                            binding.proIntake.text = max_pro_f.toString()
-                            binding.fatIntake.text = max_fat_f.toString()
+                            binding.calIntake.text = max_cal_f.roundToInt().toString()
+                            binding.carIntake.text = max_car_f.roundToInt().toString()
+                            binding.proIntake.text = max_pro_f.roundToInt().toString()
+                            binding.fatIntake.text = max_fat_f.roundToInt().toString()
 
 
 
@@ -195,10 +195,10 @@ class CalendarResultFragment() : Fragment() {
                             }
 
                         } else {
-                            binding.calIntake.text = max_cal_m.toString()
-                            binding.carIntake.text = max_car_m.toString()
-                            binding.proIntake.text = max_pro_m.toString()
-                            binding.fatIntake.text = max_fat_m.toString()
+                            binding.calIntake.text = max_cal_m.roundToInt().toString()
+                            binding.carIntake.text = max_car_m.roundToInt().toString()
+                            binding.proIntake.text = max_pro_m.roundToInt().toString()
+                            binding.fatIntake.text = max_fat_m.roundToInt().toString()
 
                             progress_cal.max = max_cal_m.roundToInt()
                             progress_car.max = max_car_m.roundToInt()
