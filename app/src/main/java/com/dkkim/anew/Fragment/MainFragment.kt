@@ -52,7 +52,7 @@ class MainFragment: Fragment() {
     private var fat: Double = 0.0
     private var food_Time: String = ""
 
-    private var dietMode = MySharedPreferences.getDietMode(requireContext())
+    private var dietMode = "basic"
 
     // 공공데이터 open api 디코딩키 선언
     private val foodNutriDecodingKey =
@@ -63,6 +63,8 @@ class MainFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? // Layout 가져오기
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
+
+        dietMode = MySharedPreferences.getDietMode(requireContext())
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
