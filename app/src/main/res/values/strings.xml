@@ -5,4 +5,6 @@
 
     <string name="AgriFoodAPIKey">GYbh7D2DFLK834K3R0f009ILwoUOVS2FjkM7JkOVpvbt7iNpeYKdlenp8wf3rEldx3Jt75r8z9zLByTqdJdzCA%3D%3D</string>
     <string name="direct_add"><u>직접입력</u></string>
+    <string name="find_pw"><u>비밀번호를 잊어버리셨습니까?</u></string>
+    <string name="login_origin"><u>기존 계정으로 로그인</u></string>
 </resources>

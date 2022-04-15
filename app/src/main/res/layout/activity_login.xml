@@ -72,7 +72,8 @@
         </LinearLayout>
 
         <CheckBox
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="자동로그인"
             android:id="@+id/auto_login"
@@ -82,7 +83,7 @@
             android:id="@+id/find_pw_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="비밀번호를 잊어버리셨습니까?"
+            android:text="@string/find_pw"
             android:gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:textSize="14dp"

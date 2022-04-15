@@ -139,7 +139,7 @@
             android:id="@+id/exi_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="기존 계정으로 로그인"
+            android:text="@string/login_origin"
             android:gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:textSize="14dp"
