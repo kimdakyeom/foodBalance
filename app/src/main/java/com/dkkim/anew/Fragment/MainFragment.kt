@@ -1,7 +1,9 @@
 package com.dkkim.anew.Fragment
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.dkkim.anew.Activity.FoodSearchActivity
@@ -79,14 +82,6 @@ class MainFragment: Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.saveBtn.setOnClickListener {
-
-            putInfo(food_Name, service_Weight, kcal, carbo, pro, fat, food_Time)
-
-            Toast.makeText(context, "데이터가 저장되었습니다", Toast.LENGTH_SHORT)
-                .show()
-        }
-
         when(dietMode){
             "minus" -> {
                 binding.dietModeText.text = "감량모드"
@@ -99,11 +94,42 @@ class MainFragment: Fragment() {
             }
         }
 
+        binding.saveBtn.setOnClickListener {
+
+            putInfo(food_Name, service_Weight, kcal, carbo, pro, fat, food_Time)
+
+            Toast.makeText(context, "데이터가 저장되었습니다", Toast.LENGTH_SHORT)
+                .show()
+        }
+
         binding.dietModeText.setOnClickListener {
             parentFragmentManager.beginTransaction() // 프래그먼트 트랜잭션 시작
                 .addToBackStack(null) // 스택에 프래그먼트 쌓기
                 .replace(R.id.main_frame, SettingDietModeFragment()) // (프래그먼트에 들어갈 프레임 레이아웃 ID, 전환될 프래그먼트)
                 .commit() // 실행
+        }
+
+        binding.directAddBtn.setOnClickListener {
+
+            val dialogListener = DialogInterface.OnClickListener { dialogInterface, i ->
+                var alert = dialogInterface as AlertDialog
+                var foodWeightEdit = alert.findViewById<EditText>(R.id.direct_add_food_weight)
+                binding.foodWeight.text = foodWeightEdit.text
+
+            }
+
+            val builder = AlertDialog.Builder(requireContext())
+            builder.apply {
+                setTitle("음식량(g) 직접 입력")
+                setIcon(R.drawable.ic_baseline_border_color_24)
+                val view = layoutInflater.inflate(R.layout.dialog_direct_add, null)
+                setView(view)
+                setPositiveButton("입력", dialogListener)
+                setNegativeButton("취소",null)
+                show()
+            }
+
+
         }
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root

@@ -135,6 +135,15 @@
             app:layout_constraintVertical_bias="0.2" />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/direct_add_btn"
+        app:layout_constraintBottom_toBottomOf="@id/circle"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/direct_add"/>
 
     <LinearLayout
         android:id="@+id/connect"
