@@ -1,6 +1,7 @@
 package com.dkkim.anew.Fragment
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,10 +17,12 @@ import com.dkkim.anew.Activity.LoginActivity
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.Model.UserAccount
 import com.dkkim.anew.databinding.FragmentMainBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,6 +34,8 @@ class MainFragment: Fragment() {
     lateinit var binding: FragmentMainBinding // 프래그먼트 바인딩
     private val retrofit = RetrofitClient.create() // 레트로핏 클라이언트 선언
     private lateinit var firebaseAuth: FirebaseAuth
+
+    val TAG : String = "Test"
 
     var user = UserAccount(Firebase.auth.currentUser?.uid, null, null)
 
@@ -51,6 +56,19 @@ class MainFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? // Layout 가져오기
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false) // 레이아웃을 MainFragment에 붙히는 부분
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "FCM failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+
+            val msg = token
+            Log.d(TAG, msg)
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        })
 
         UserNameInfo(user.uid.toString())
         // 검색창
