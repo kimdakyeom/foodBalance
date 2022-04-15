@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dkkim.anew.Activity.LoginActivity
+import com.dkkim.anew.Activity.SelectDeviceActivity
 import com.dkkim.anew.Model.SettingInfo
 import com.dkkim.anew.R
 import com.dkkim.anew.RecyclerView.SettingItemAdapter
@@ -26,7 +27,7 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
         SettingInfo("개인정보 설정"),
         SettingInfo("푸시알람 설정"),
         SettingInfo("비밀번호 재설정"),
-        SettingInfo("평균 권장 섭취량"),
+        SettingInfo("블루투스 연결"),
         SettingInfo("Q & A"),
         SettingInfo("로그아웃")
     )
@@ -79,7 +80,8 @@ class SettingFragment : Fragment(), SettingItemAdapter.OnItemClickListener {
             "블루투스 연결" -> {
                 val bundle = Bundle()
                 bundle.putString("uid", "사용자uid")
-                replaceFragment(BluetoothFragment(), bundle)
+                val intent = Intent(getActivity(), SelectDeviceActivity::class.java) //SelectDeviceActivity로 화면 전환
+                startActivity(intent)
             }
             "Q & A" -> {
                 val bundle = Bundle()
