@@ -1,111 +1,79 @@
 package com.dkkim.anew.Util
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_ONE_SHOT
 import android.content.Context
 import android.content.Intent
-import android.media.RingtoneManager
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Build
-import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
+import androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH
 import com.dkkim.anew.Activity.MainActivity
 import com.dkkim.anew.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlin.random.Random
+
+private const val CHANNEL_ID = "my_channel"
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
-
-        Log.d(TAG, "From: ${remoteMessage.from}")
-
-
-        if (remoteMessage.data.isNotEmpty()) {
-            Log.d(TAG, "Message Payload Body: ${remoteMessage.data}")
-            sendNotification(remoteMessage.data["title"].toString(), remoteMessage.data["body"].toString())
-
-            if (true) {
-                scheduleJob()
-            } else {
-
-                handleNow()
-            }
-        }
-
-        if (remoteMessage.notification != null) {
-            Log.d(TAG, "Message Notification Body: ${remoteMessage.notification!!.body}")
-            sendNotification(remoteMessage.notification!!.body.toString(),
-                remoteMessage.notification!!.body.toString()
-            )
-        }
-
-
-    }
-
-    override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
-
-        sendRegistrationToServer(token)
-    }
-
-
-    private fun scheduleJob() {
-
-
-        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-        WorkManager.getInstance(this).beginWith(work).enqueue()
-
-    }
-
-
-    private fun handleNow() {
-        Log.d(TAG, "Short lived task is done.")
-    }
-
-    private fun sendRegistrationToServer(token: String) {
-        Log.d(TAG, "sendRegistrationTokenToServer($token")
-    }
-
-    private fun sendNotification(title: String, messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0 /* Request code */, intent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
-
-        val channelId = "anew"
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.logo)
-            .setContentTitle(title)
-            .setContentText(messageBody)
-            .setAutoCancel(true)
-            .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
-
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Channel human readable title",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
-    }
-
     companion object {
+        var sharedPref: SharedPreferences? = null
 
-        private const val TAG = "MyFirebaseMsgService"
+        var token: String?
+            get() {
+                return sharedPref?.getString("token", "")
+            }
+            set(value) {
+                sharedPref?.edit()?.putString("token", value)?.apply()
+            }
+    }
+
+    // 사용자 디바이스 토큰 새로 생성
+    override fun onNewToken(newToken: String) {
+        super.onNewToken(newToken)
+        token = newToken
+    }
+
+    //알람이 온 경우 --> 어떻게 보이게 할 것인지, 누르면 어디로 이동하게 할 것인지 정하는 메소드
+    override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
+
+        //알림 팝업 누를 시 MainActivity로 이동
+        val intent = Intent(this, MainActivity::class.java)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationID = Random.nextInt()
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(notificationManager)
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, FLAG_ONE_SHOT)
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle(message.data["title"])
+            .setContentText(message.data["message"])
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        notificationManager.notify(notificationID, notification)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(notificationManager: NotificationManager) {
+        val channelName = "channelName"
+        val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply {
+            description = "My channel description"
+            enableLights(true)
+            lightColor = Color.GREEN
+        }
+        notificationManager.createNotificationChannel(channel)
     }
 }

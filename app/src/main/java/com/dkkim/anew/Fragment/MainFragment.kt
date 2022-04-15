@@ -71,6 +71,11 @@ class MainFragment: Fragment() {
                 Log.w(TAG, "FCM failed", task.exception)
                 return@OnCompleteListener
             }
+            val token = task.result
+            MySharedPreferences.setFcmToken(requireContext(), token)
+
+            FirebaseDatabase.getInstance().getReference("UserAccount").child(firebaseAuth.currentUser?.uid!!).child("token").setValue(token)
+
 
         })
 

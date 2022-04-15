@@ -1,6 +1,7 @@
 package com.dkkim.anew.Fragment
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -9,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.dkkim.anew.Util.FCMRetrofitInstance
+import com.dkkim.anew.Util.Model.NotificationData
+import com.dkkim.anew.Util.Model.PushNotification
 import com.dkkim.anew.Util.MySharedPreferences
 import com.dkkim.anew.databinding.FragmentCalendarResultBinding
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +21,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_calendar_result.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class CalendarResultFragment() : Fragment() {
@@ -55,6 +63,8 @@ class CalendarResultFragment() : Fragment() {
         val simpleDateFormat = "${year}-${month}-$dayOfMonth"
 
         Log.i("TAG: date is", simpleDateFormat)
+
+        sendPushByToken(simpleDateFormat)
 
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat)
             .addValueEventListener(
@@ -213,6 +223,7 @@ class CalendarResultFragment() : Fragment() {
                             if (kcalsum.toInt() >= (max_cal_m/2)) {
                                 progress_cal.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
+
                             } else if (carbosum.toInt() >= (max_car_m/2)) {
                                 progress_car.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
@@ -243,4 +254,29 @@ class CalendarResultFragment() : Fragment() {
 // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
     }
+
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = FCMRetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful) {
+                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+            } else {
+                Log.e(TAG, response.errorBody().toString())
+            }
+        } catch(e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+    }
+
+    fun sendPushByToken(msg: String) {
+        val PushNotification = PushNotification(
+            NotificationData("FoodBalance", msg),
+            MySharedPreferences.getFcmToken(requireContext())
+        )
+        sendNotification(PushNotification)
+    }
+
+
+
 }

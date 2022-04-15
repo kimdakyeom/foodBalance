@@ -26,6 +26,13 @@ object MySharedPreferences {
         editor.putString("dietMode", dietMode)
         editor.apply()
     }
+    fun setFcmToken(context: Context, fcmToken: String) {
+        val prefs: SharedPreferences =
+            context.getSharedPreferences(MY_AUTHORIZATION, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putString("dietMode", fcmToken)
+        editor.apply()
+    }
     fun setDate(context: Context, date:String) {
         val prefs: SharedPreferences =
             context.getSharedPreferences(MY_AUTHORIZATION, Context.MODE_PRIVATE)
@@ -39,6 +46,12 @@ object MySharedPreferences {
         val prefs: SharedPreferences =
             context.getSharedPreferences(MY_AUTHORIZATION, Context.MODE_PRIVATE)
         return prefs.getString("date", "").toString()
+    }
+
+    fun getFcmToken(context: Context):String {
+        val prefs: SharedPreferences =
+            context.getSharedPreferences(MY_AUTHORIZATION, Context.MODE_PRIVATE)
+        return prefs.getString("fcmToken","").toString()
     }
     fun getDietMode(context: Context): String {
         val prefs: SharedPreferences =
