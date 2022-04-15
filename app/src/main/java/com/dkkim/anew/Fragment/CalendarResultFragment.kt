@@ -1,7 +1,6 @@
 package com.dkkim.anew.Fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -10,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.dkkim.anew.Activity.LoginActivity
+import com.dkkim.anew.Util.MySharedPreferences
 import com.dkkim.anew.databinding.FragmentCalendarResultBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -19,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_calendar_result.*
-import java.util.*
 
 class CalendarResultFragment() : Fragment() {
     lateinit var binding: FragmentCalendarResultBinding
@@ -121,18 +119,55 @@ class CalendarResultFragment() : Fragment() {
                     for (snapshotChild in snapshot.children) {
                         val sex = snapshotChild.child("sex").getValue().toString()
 
+                        val dietMode = MySharedPreferences.getDietMode(requireContext())
+
                         Log.i("TAG: sex is", sex)
 
-                        if (sex == "true") {
-                            binding.calIntake.text = "3468"
-                            binding.carIntake.text = "434"
-                            binding.proIntake.text = "116"
-                            binding.fatIntake.text = "96"
+                        var max_cal_f = 3468
+                        var max_car_f = 434
+                        var max_pro_f = 116
+                        var max_fat_f = 96
 
-                            progress_cal.max = 3468
-                            progress_car.max = 434
-                            progress_pro.max = 116
-                            progress_fat.max = 96
+                        var max_cal_m = 4332
+                        var max_car_m = 542
+                        var max_pro_m = 145
+                        var max_fat_m = 120
+
+                        when(dietMode) {
+                            "minus" -> {
+                                max_cal_f *= 0.8 as Int
+                                max_car_f *= 0.8 as Int
+                                max_pro_f *= 0.8 as Int
+                                max_fat_f *= 0.8 as Int
+                                max_cal_m *= 0.8 as Int
+                                max_car_m *= 0.8 as Int
+                                max_pro_m *= 0.8 as Int
+                                max_fat_m *= 0.8 as Int
+                            }
+                            "add" -> {
+                                max_cal_f *= 1.2 as Int
+                                max_car_f *= 1.2 as Int
+                                max_pro_f *= 1.2 as Int
+                                max_fat_f *= 1.2 as Int
+                                max_cal_m *= 0.8 as Int
+                                max_car_m *= 0.8 as Int
+                                max_pro_m *= 0.8 as Int
+                                max_fat_m *= 0.8 as Int
+                            }
+                        }
+
+                        if (sex == "true") {
+                            binding.calIntake.text = max_cal_f.toString()
+                            binding.carIntake.text = max_car_f.toString()
+                            binding.proIntake.text = max_pro_f.toString()
+                            binding.fatIntake.text = max_fat_f.toString()
+
+
+
+                            progress_cal.max = max_cal_f
+                            progress_car.max = max_car_f
+                            progress_pro.max = max_pro_f
+                            progress_fat.max = max_fat_f
 
                             progress_cal.progress = kcalsum.toInt()
                             progress_car.progress = carbosum.toInt()
@@ -144,46 +179,46 @@ class CalendarResultFragment() : Fragment() {
                             binding.dailyProIntake.text = prosum.toInt().toString()
                             binding.dailyFatIntake.text = fatsum.toInt().toString()
 
-                            if (kcalsum.toInt() >= (1734)) {
+                            if (kcalsum.toInt() >= (max_cal_f/2)) {
                                 progress_cal.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
-                            } else if (carbosum.toInt() >= (217)) {
+                            } else if (carbosum.toInt() >= (max_car_f/2)) {
                                 progress_car.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
-                            } else if (prosum.toInt() >= (58)) {
+                            } else if (prosum.toInt() >= (max_pro_f/2)) {
                                 progress_pro.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
-                            } else if (fatsum.toInt() >= (48)) {
+                            } else if (fatsum.toInt() >= (max_fat_f/2)) {
                                 progress_fat.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
 
                         } else {
-                            binding.calIntake.text = "4332"
-                            binding.carIntake.text = "542"
-                            binding.proIntake.text = "145"
-                            binding.fatIntake.text = "120"
+                            binding.calIntake.text = max_cal_m.toString()
+                            binding.carIntake.text = max_car_m.toString()
+                            binding.proIntake.text = max_pro_m.toString()
+                            binding.fatIntake.text = max_fat_m.toString()
 
-                            progress_cal.max = 4332
-                            progress_car.max = 542
-                            progress_pro.max = 145
-                            progress_fat.max = 120
+                            progress_cal.max = max_cal_m
+                            progress_car.max = max_car_m
+                            progress_pro.max = max_pro_m
+                            progress_fat.max = max_fat_m
 
                             progress_cal.progress = kcalsum.toInt()
                             progress_car.progress = carbosum.toInt()
                             progress_pro.progress = prosum.toInt()
                             progress_fat.progress = fatsum.toInt()
 
-                            if (kcalsum.toInt() >= (2166)) {
+                            if (kcalsum.toInt() >= (max_cal_m/2)) {
                                 progress_cal.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
-                            } else if (carbosum.toInt() >= (271)) {
+                            } else if (carbosum.toInt() >= (max_car_m/2)) {
                                 progress_car.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
-                            } else if (prosum.toInt() >= (73)) {
+                            } else if (prosum.toInt() >= (max_pro_m/2)) {
                                 progress_pro.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
-                            } else if (fatsum.toInt() >= (60)) {
+                            } else if (fatsum.toInt() >= (max_fat_m/2)) {
                                 progress_fat.progressTintList =
                                     ColorStateList.valueOf(Color.rgb(248, 72, 72))
                             }
