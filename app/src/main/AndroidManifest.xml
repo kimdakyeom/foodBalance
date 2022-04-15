@@ -18,6 +18,13 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true">
 
+        <service android:name=".Util.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".Activity.JoinActivity"
             android:exported="true" />
