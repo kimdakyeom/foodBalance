@@ -64,6 +64,7 @@ class CalendarResultFragment() : Fragment() {
 
         Log.i("TAG: date is", simpleDateFormat)
 
+
         sendPushByToken(simpleDateFormat)
 
         mDatabase.child(Firebase.auth.currentUser?.uid.toString()).child(simpleDateFormat)
