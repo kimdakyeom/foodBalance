@@ -1,7 +1,6 @@
 package com.dkkim.anew.Fragment
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -18,11 +17,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_calendar_result.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class CalendarResultFragment() : Fragment() {

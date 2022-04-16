@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.dkkim.anew.Activity.FoodSearchActivity
 import com.dkkim.anew.Activity.LoginActivity
+import com.dkkim.anew.Activity.MainApplication
 import com.dkkim.anew.Model.FoodInfo
 import com.dkkim.anew.Model.UserAccount
 import com.dkkim.anew.R
@@ -28,6 +29,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import java.io.IOException
+import java.io.UnsupportedEncodingException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -51,6 +54,7 @@ class MainFragment: Fragment() {
     private var pro: Double = 0.0
     private var fat: Double = 0.0
     private var food_Time: String = ""
+    private var mWorkerThread : Thread? = null
 
     private var dietMode = "basic"
 
@@ -138,6 +142,65 @@ class MainFragment: Fragment() {
         // 프래그먼트에선 return 문이 코드 마지막에 와야 함
         return binding.root
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        if(MainApplication.m_bluetoothSocket != null){
+            beginListenForData()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mWorkerThread?.interrupt()
+        mWorkerThread = null
+    }
+
+    /**
+     * 블루투스 데이터 수신 Listener
+     */
+    fun beginListenForData() {
+        if(MainApplication.mmInStream == null){
+            return
+        }
+        mWorkerThread = Thread {
+            while (!Thread.currentThread().isInterrupted) {
+
+                try {
+                    val bytesAvailable = MainApplication.mmInStream?.available()
+                    if (bytesAvailable != null) {
+                        if (bytesAvailable > 0) { //데이터가 수신된 경우
+                            val packetBytes = ByteArray(bytesAvailable)
+                            MainApplication.mmInStream?.read(packetBytes)
+                            // 한 버퍼 처리
+                            // Byte -> String
+                            val scale = String(packetBytes,Charsets.UTF_8)
+                            //수신 String 출력
+                            // Toast.makeText(context, "수신: $scale", Toast.LENGTH_SHORT).show()
+                            Thread.sleep(1000)
+                            activity?.runOnUiThread {
+                                binding.foodWeight.text = scale
+                            }
+                             /**한 바이트씩 처리
+                           for (i in 0 until bytesAvailable) {
+                                val b = packetBytes[i]
+                                Log.d("inputData", String.format("%02x", b))
+                           } */
+                        }
+                    }
+                } catch (e: UnsupportedEncodingException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        //데이터 수신 thread 시작
+        mWorkerThread!!.start()
+
+    }
+
 
     // main activity에서 sub activity를 호출해서 넘어갔다가 다시 main activity로 돌아옴
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)

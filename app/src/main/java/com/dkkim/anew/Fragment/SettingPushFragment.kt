@@ -1,12 +1,10 @@
 package com.dkkim.anew.Fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dkkim.anew.R
-import com.dkkim.anew.databinding.FragmentBluetoothBinding
+import androidx.fragment.app.Fragment
 import com.dkkim.anew.databinding.FragmentSettingPushBinding
 
 class SettingPushFragment : Fragment() {
