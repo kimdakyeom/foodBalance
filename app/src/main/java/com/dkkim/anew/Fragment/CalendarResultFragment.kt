@@ -10,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.dkkim.anew.Util.Model.NotificationData
-import com.dkkim.anew.Util.Model.PushNotification
 import com.dkkim.anew.Util.MySharedPreferences
 import com.dkkim.anew.databinding.FragmentCalendarResultBinding
 import com.google.firebase.auth.ktx.auth
